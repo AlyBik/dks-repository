@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документы - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #64748b; }
+        .type-link.active { color: #64748b; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #64748b; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #64748b; box-shadow: 0 2px 8px rgba(100, 116, 139, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #64748b; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #475569; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Документы</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link active"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">Общие документы ДКС - Кадровые операции</div>
+            
+            <a href="https://drive.rarus.ru/apps/onlyoffice/19049978?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%201%20день.doc" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">О выходе из декретного отпуска образец заявления до 3 х лет</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/19049978?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%201%20день.doc" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Образец заявления на админ отпуск на 1 день</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/19049975?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%20несколько%20дней.doc" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Образец заявления на админ отпуск на несколько дней</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/19049969?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20очередной%20отпуск%201.doc" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Образец заявления на очередной отпуск</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/19049966?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20увольнение.doc" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Образец заявления на увольнение</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/58172361?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FГруппы%20рассылок.xlsx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Группы рассылок</div>
+                    <div class="item-desc">Группы рассылок для согласования кадровых операций</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">Общие документы ДКС</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22478552?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FПолезные%20ссылки%20для%20новых%20сотрудников.xlsx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Полезные ссылки для новых сотрудников</div>
+                    <div class="item-desc">Перечень информации, с которой должен ознакомиться новый сотрудник</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">База знаний ОМКС</div>
+
+            <a href="https://drive.rarus.ru/apps/files/files/11677220?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Лицензирование%20программных%20продуктов" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Лицензирование программных продуктов</div>
+                    <div class="item-desc">Полезные ссылки. На портале ИТС можно самостоятельно получить данные о владельце лицензии</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/73776595?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FГорячие%20клавиши.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Горячие клавиши</div>
+                    <div class="item-desc">Топ полезных горячих клавиш в 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Спец%20платформа&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Спец платформа</div>
+                    <div class="item-desc">Примеры решения задания 1 и 2 экзамена Специалиста по платформе</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС группа РСБУ</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/61394748?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F01.%20Функциональная%20область%20РСБУ%2FИзменения_в_законодательстве_от_1_января_2025.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Изменения в законодательстве от 1 января 2025</div>
+                    <div class="item-desc">Изменения в законодательстве с 1 января 2025 года</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/73778057?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F01.%20Функциональная%20область%20РСБУ%2FРаспоряжение%202026%20гПравительства%20№%204176-р%20%2C%20которое%20определило%20перечень%20ОКВЭД%20для%20льготных%20ставок%20по%20УСН.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Распоряжение 2026 г Правительства № 4176-р. ОКВЭД для льготных ставок по УСН</div>
+                    <div class="item-desc">Распоряжение Правительства РФ о перечне ОКВЭД для льготных ставок по УСН</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/74847737?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FКонтрагенты%20с%20обособленными%20подразделениями.%20Отражение%20КПП%20в%201с.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Контрагенты с обособленными подразделениями. Отражение КПП в 1С</div>
+                    <div class="item-desc">Правила отражения КПП обособленных подразделений контрагентов в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/44443176?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/После%20обновления%20на%20версию%203.0.167%20слетели%20итоги%20по%20счету%2068.01&editing=false&openfile=true" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Описание решения</div>
+                    <div class="item-desc">Решение проблемы с остатками на счете 68.01 после обновления релиза 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/73602405?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F07.%20Интеграции%2C%20доработки%20и%20прочие%20материалы%2FСравнение%20хоз.%20операций%2C%20видов%20договоров%20и%20оформляемых%20документов%20в%20ЕРП%20и%20БП.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Сравнение хоз. операций, видов договоров и оформляемых документов в ЕРП и БП</div>
+                    <div class="item-desc">Предложение по доработке обмена ЕРП и БП в части видов договоров</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/7745256?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FИнформация%20для%20кофе-брейка%20%20и%20завтрака%20путешественника.xlsx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Информация для кофе-брейка и завтрака путешественников</div>
+                    <div class="item-desc">Хобби сотрудников РСБУ, рекомендации в путешествиях от сотрудников РСБУ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/76777873?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FРаспределение%20по%20клиентам%20ОМКС%20РСБУ%202026%20.xlsx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Распределение по клиентам ОМКС РСБУ 2026</div>
+                    <div class="item-desc">Распределение методологов по клиентам РСБУ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

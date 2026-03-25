@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обработки - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #10b981; }
+        .type-link.active { color: #10b981; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #10b981; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #10b981; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #10b981; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #059669; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Обработки</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link active"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">ОМКС - Полезные Обработки и запросы</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ConsQuery7_8.2</div>
+                    <div class="item-desc">Консоль запросов для обычных форм (для 1С:УПП). Все консоли УПП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ConsSel_Managed_8_2</div>
+                    <div class="item-desc">Консоль запросов для управляемых форм</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">XML82</div>
+                    <div class="item-desc">ВыгрузкаЗагрузкаДанныхXML82 - выгрузка и загрузка данных в/из XML</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Как массово поменять ВРЕМЯ у документов</div>
+                    <div class="item-desc">Групповое изменение реквизитов для изменения времени документов с перепроведением</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Информация по пользователям ИБ (табличный документ)</div>
+                    <div class="item-desc">Формирует отчет со сведениями о пользователях информационной базы</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ЗагрузкаДанныхИзExcel_22022022</div>
+                    <div class="item-desc">Внешняя обработка для загрузки данных из табличного документа Excel</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ЗагрузкаДанныхИзExcel_2202202223</div>
+                    <div class="item-desc">Внешняя обработка для загрузки данных из табличного документа Excel</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ЗапускПодПользователем_v3</div>
+                    <div class="item-desc">Обработка выполняет запуск системы под выбранными пользователями</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Запрос для упр.форм проверка по ВР 09 и 77</div>
+                    <div class="item-desc">Запрос для управляемых форм по проверке 09 и 77 счетов БУ со счетами по ВР</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ВыгрузкаЗагрузкаJSON_1.2.1_8.3+</div>
+                    <div class="item-desc">Перенос через JSON данных между двумя базами 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Примеры запросов от Бикчентаевой Альбины</div>
+                    <div class="item-desc">Примеры запросов с видеообучением от Бикчентаевой А.</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Обработки пересчета Итогов</div>
+                    <div class="item-desc">Включение/выключение использования итогов, изменение периода, пересчет итогов</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/9727721?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы/Обработки%20на%20НХК" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Обработки на НХК</div>
+                    <div class="item-desc">Папка с обработками для НХК</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Консоль запросов (упр. интерфейс)</div>
+                    <div class="item-desc">Инструмент для отладки и просмотра результатов запросов в управляемом режиме</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Консоль запросов и обработчик</div>
+                    <div class="item-desc">Консоль запросов для разработчиков с последующей обработкой результата</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">КонсольЗапросовУФ_8.3.2.7</div>
+                    <div class="item-desc">Консоль запросов для управляемых форм 8.3</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ПоискИЗаменаЗначений83_КорректировкаРегистров</div>
+                    <div class="item-desc">Универсальная обработка для поиска и замены ссылочных значений</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">PUBID_284674-ЗагрузкаДанныхИзТабличногоДокумента_в операцию</div>
+                    <div class="item-desc">Загрузка данных в документ Операция из табличного документа</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">СДРНавигаторУпр</div>
+                    <div class="item-desc">Универсальная внешняя обработка для просмотра метаданных конфигураций</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">СравнениеДвухОбъектов</div>
+                    <div class="item-desc">Сравнивает два выбранных объекта и показывает различия между ними</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Тест COM-подключения (упрощенный)</div>
+                    <div class="item-desc">Обработка для тестирования COM-соединения</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Просмотр и редактирование права доступа</div>
+                    <div class="item-desc">Просмотр и редактирование прав доступа по ролям</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Просмотр права доступа по ролям</div>
+                    <div class="item-desc">Просмотр права доступа по ролям для конфигураций 8.2 и 8.3</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Редактор реквизитов (упр. и обыч. формы)</div>
+                    <div class="item-desc">Универсальный редактор реквизитов для ручного редактирования данных</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Редактор_Движений_упр_и_обыч_формы_Copy_2</div>
+                    <div class="item-desc">Универсальная обработка для редактирования движений документов</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">04. 1С Бухгалтерия</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/44443176?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/После%20обновления%20на%20версию%203.0.167%20слетели%20итоги%20по%20счету%2068.01" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">КорректировкаСчетовНДФЛ (1).epf</div>
+                    <div class="item-desc">Обработка для решения проблемы с остатками на счете 68.01 после обновления</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">05. 1С Розница</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/73778067?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/05%201С%20Розница" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Обработка НДС22%Фронтол</div>
+                    <div class="item-desc">Обработка для розницы 2.3 для загрузки ставки НДС 22% при обмене с Фронтол</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+        </div>
+    </div>
+</body>
+</html>

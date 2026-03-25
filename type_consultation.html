@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Консультации - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #f59e0b; }
+        .type-link.active { color: #f59e0b; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #f59e0b; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #f59e0b; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #f59e0b; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #d97706; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Консультации</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link active"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">ОМКС группа РСБУ - 1С ЕРП</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/44444847?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/02.%201С%20ЕРП&editing=false&openfile=true" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Налог на прибыль в базе ЕРП. Расхождения по БУ и НУ</div>
+                    <div class="item-desc">Проблема с расхождением налога на прибыль БУ/НУ из-за неверной настройки резерва по ФОТ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/27412129?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2Fв%20ЕРП%20долгосрок%20высчитывается%20по%20длительности%20цикла%2012%20мес.%20именно%20в%20месяцах%20(ПСП).docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">в ЕРП долгосрок высчитывается по длительности цикла 12 мес.</div>
+                    <div class="item-desc">Расчет долгосрочных резервов в ERP по длительности цикла 12 месяцев</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/27418510?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FНе%20отражаются%20электронные%20билеты%20в%20авансовым%20отчете%20ПСП.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Не отражаются электронные билеты в авансовом отчете</div>
+                    <div class="item-desc">Проблема неподгрузки электронного билета в авансовый отчет 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС группа РСБУ - 1С УПП</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8785706?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FАлгоритм%20распределения%20оплаты%20труда%20по%20плановой%20себестоимости%20на%20изготовление%20продукции%20и%20оказание%20услуг.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Алгоритм распределения оплаты труда по плановой себестоимости</div>
+                    <div class="item-desc">Алгоритм распределения оплаты труда по плановой себестоимости в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8787638?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FАренда%20Консультация.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Аренда Консультация</div>
+                    <div class="item-desc">Практическое руководство по отражению учета аренды у арендатора в 1С:УПП согласно ФСБУ 25/2018</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8787845?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FВопрос%20по%20лизингу%20.%20Почему%20образовались%20ВР.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Вопрос по лизингу. Почему образовались ВР</div>
+                    <div class="item-desc">Учет аренды у арендатора в 1С:УПП по ФСБУ 25/2018</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9678221?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FНадо%20перекинуть%20с%20ВР%20на%20ПР%3A%20как%20правильно.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Надо перекинуть с ВР на НУ: как правильно</div>
+                    <div class="item-desc">Пример верной проводки по перекидке с 10.01 на с ВР на НУ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/7973009?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОформление%20валютных%20операций.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Оформление валютных операций</div>
+                    <div class="item-desc">Оформление валютных операций в 1С при задолженности в евро и оплате в армянских драмах</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/31479266?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОшибка%20по%2043%20счету%20при%20расчете%20себестоимости.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Ошибка по 43 счету при расчете себестоимости</div>
+                    <div class="item-desc">Проверка и исправление ошибок в ОСВ по счету 43 в РАУЗ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8109048?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОтражение%20арендованных%20объектов%20в%20соответствии.%20%20НДС%20входящий%20от%20поступления%20услуг%20аренды%20не%20попадает%20в%20распределение.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Отражение арендованных объектов. НДС входящий от поступления услуг аренды не попадает в распределение</div>
+                    <div class="item-desc">Решение проблемы отражения входящего НДС по аренде (ППА) в документе «Распределение НДС косвенных расходов» в 1С:УПП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8109081?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FОтвет%20на%20обращение%20по%20расхождению%20БУ%20и%20НУ%2C%20по%2077%20и%2009%20счету.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Ответ на обращение по расхождению БУ и НУ, по 77 и 09 счету</div>
+                    <div class="item-desc">Решение проблемы расхождения в отчете по БУ и НУ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8774963?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FПроверка%2009%20и%2077%2C%20Расчет%20налога%20на%20прибыль%20и%20поиск%20ошибок.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Проверка 09 и 77, Расчет налога на прибыль и поиск ошибок</div>
+                    <div class="item-desc">Решение проблемы расхождения налога на прибыль по данным НУ и Бу</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8776331?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FУПП%20Варианты%20корректировок%20реализации.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">УПП Варианты корректировок реализации</div>
+                    <div class="item-desc">Обзор вариантов корректировки реализации в 1С:УПП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8639744?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FУПП%20Проверка%20расхождения%20счета%2010ВР%20и%2077%2009.%20Поиск%20ошибки%20%3AРасходится%20налог%20на%20прибыль.%20Проводка%2068.04-99.09%20большая.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">УПП Проверка расхождения счета 10ВР и 77 09. Поиск ошибки</div>
+                    <div class="item-desc">Предоставлен запрос для проверки расхождения счета 10 (ВР) и счетов 77 и 09 (БУ)</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС группа РСБУ - 1С Бухгалтерия</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8785319?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FАВС%20электро%20Документ%20Принятие%20к%20учету%20ОС%20дает%20некорректные%20проводки%20на%2008%20только%20количество.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">АВС электро Документ Принятие к учету ОС дает некорректные проводки на 08 только количество</div>
+                    <div class="item-desc">Сборник ответов на вопросы по 1С:Бухгалтерия 8 (ред. 3.0)</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8785640?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FАлгорит%20Амортизация%20ОС.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Алгоритм Амортизация ОС</div>
+                    <div class="item-desc">Алгоритм расчета амортизации ОС в 1С:Бухгалтерия</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8721923?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FБух%203.0%20КОРП.%20ОШибки%20нумерации%20с-ф%2C%20сторно%20себестоимости.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Бух 3.0 КОРП. Ошибки нумерации с-ф, сторно себестоимости</div>
+                    <div class="item-desc">Проблемы с нумерацией счетов-фактур в 1С:Бухгалтерия 3.0 КОРП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8771216?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FБухгалтерия%20%203.0%20оплата%20в%20валюте%20или%20в%20рублях.%20Частичный%20аванс.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Бухгалтерия 3.0 оплата в валюте или в рублях. Частичный аванс</div>
+                    <div class="item-desc">Учет авансовых платежей в валюте и рублях в 1С:Бухгалтерия 3.0</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/70444920?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FВ%20книге%20продаж%20выходит%20номер%20платежного%20поручения%2Cа%20не%20счет%20фактура%20на%20аванс.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">В книге продаж выходит номер платежного поручения, а не счет фактура на аванс</div>
+                    <div class="item-desc">Проблема отражения номеров авансовых счетов-фактур в книге продаж</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/73777997?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКак%20в%201С%3A%20Бухгалтерия%20предприятия%20в%202025%20году%20выставить%20счет%20на%202026г%20с%20НДС%2022%25.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Как в 1С:Бухгалтерия предприятия в 2025 году выставить счет на 2026г с НДС 22%</div>
+                    <div class="item-desc">Порядок выставления счета в 1С на поставку в 2026 году с НДС 22%</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8772182?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКак%20при%20совмещении%20режимов%20в%20декларации%20по%20ЕНВД%20указать%20нужный%20КПП.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Как при совмещении режимов в декларации по ЕНВД указать нужный КПП</div>
+                    <div class="item-desc">Указание нужного КПП в декларации по ЕНВД при совмещении режимов налогообложения</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/55645872?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКод%20валютной%20операции%20в%20платежных%20документах.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Код валютной операции в платежных документах</div>
+                    <div class="item-desc">Заполнение кода валютной операции (КВО) в платежном поручении</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8774501?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FМодернизация%20ОС%20в%20БУх%203.0%20%20АХДБ.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Модернизация ОС в БУх 3.0</div>
+                    <div class="item-desc">Модернизация основных средств в 1С:Бухгалтерия 3.0</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8786366?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FНастройка%20автозаполнения%20цены%20в%20поступлении%20%20по%20предыдущему%20документу.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Настройка автозаполнения цены в поступлении по предыдущему документу</div>
+                    <div class="item-desc">Инструкция по настройке автозаполнения цены в документе "Поступление"</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9997811?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FНастройка%20ДиректБанк.odt" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Настройка ДиректБанк</div>
+                    <div class="item-desc">Решение проблемы с ошибкой при настройке Директ Банк в 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778875?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FПРИМЕР%20РЕЗЕРВА%20ПОД%20ОБЕСЦЕНЕНИЕ%20ЗАПАСОВ%20В%20ПРОГРАММЕ%201С_БУХГАЛТЕРИЯ%208%20КОРП%20РЕДАКЦИЯ%203.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ПРИМЕР РЕЗЕРВА ПОД ОБЕСЦЕНЕНИЕ ЗАПАСОВ В ПРОГРАММЕ 1С:БУХГАЛТЕРИЯ 8 КОРП РЕДАКЦИЯ 3</div>
+                    <div class="item-desc">Инструкция по созданию и отражению резерва под обесценение запасов</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8775416?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FПРОДАЖА%20ОСНОВНОГО%20СРЕДСТВА%20В%201С%208.3_%20ПОШАГОВАЯ%20ИНСТРУКЦИЯ.%20(%2Bубыток).docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ПРОДАЖА ОСНОВНОГО СРЕДСТВА В 1С 8.3. Пошаговая инструкция (+убыток)</div>
+                    <div class="item-desc">Пошаговая инструкция продажи основного средства в 1С 8.3</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/27436351?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FРеализация%20ОС%20на%20консервации%20с%20убытком%20(Данкина%20А).docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Реализация ОС на консервации с убытком</div>
+                    <div class="item-desc">Разбор проблемы с некорректным закрытием периода при передаче законсервированного ОС</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8721995?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FРег%20операция%20Корректировка%20стоимости%20номенклатуры%20сторнирует%20себестоимости%20реализации.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Регламентная операция Корректировка стоимости номенклатуры сторнирует себестоимости реализации</div>
+                    <div class="item-desc">Решение проблемы с некорректным расчетом себестоимости в 1С:Бухгалтерия</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8787188?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FУчет%20резерва%20на%20оплату%20отпусков%20в%20программе%20_1С_Бухгалтерия%208_%20(редакция%203.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Учет резерва на оплату отпусков в программе 1С:Бухгалтерия 8 (редакция 3)</div>
+                    <div class="item-desc">Статья по настройке и ведению учета резерва на оплату отпусков</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС группа РСБУ - 1С АХДБ</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778476?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FАлгорит%20расчета%20%20Амортизации%20ОС%20в%20АХДБ.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Алгоритм расчета Амортизации ОС в АХДБ</div>
+                    <div class="item-desc">Алгоритм расчета амортизации ОС в 1С:Бухгалтерия</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9537659?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FБК%20Ошибка_%20при%20проведении%20%22Открытие%20счетов..%22%20Статьи%20доходов%20и%20расходов%20могут%20иметь%20привязку%20только%20к%20одному%20счету%20учета.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">БК Ошибка при проведении Открытие счетов. Статьи доходов и расходов могут иметь привязку только к одному счету учета</div>
+                    <div class="item-desc">Описание ограничения в программе 1С по привязке статей доходов и расходов к счетам учета</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9537644?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FБК%20Ошибка_%20при%20проведения%20документа%20%22Открытие%20счетов..%22%20счет%20уже%20создан.%20Скрытый%20реквизит.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">БК Ошибка при проведении документа Открытие счетов. Счет уже создан. Скрытый реквизит</div>
+                    <div class="item-desc">Инструкция по решению ошибки "Счет уже создан" при проведении документа</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778479?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FВопрос%20по%20оприходованию%20ОС%20двумя%20доками%20поступления.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Вопрос по оприходованию ОС двумя доками поступления</div>
+                    <div class="item-desc">Консультация по оприходованию основных средств двумя документами поступления</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778977?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПереоценка%20и%20обесценение%20ОС.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Переоценка и обесценение ОС</div>
+                    <div class="item-desc">Инструкция по переоценке и обесценению основных средств</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8840321?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПри%20открытии%20счета%20аналитического%20по%20символам%20ОФР%20ругается%20что%20счет%20уже%20созданdocx.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">При открытии счета аналитического по символам ОФР ругается что счет уже создан</div>
+                    <div class="item-desc">Решение проблемы с ошибкой при открытии счета аналитического учета</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/68734410?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПроблема%20начисления%20амортизации%20НМА.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Проблема начисления амортизации НМА</div>
+                    <div class="item-desc">Описание бага в алгоритме начисления амортизации НМА</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/76912941?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FРасчет%20налога%20на%20имущество%20(проблема%20с%20Декларацией%20по%20налогу%20на%20имущество%20по%20нескольким%20ОКТМО).docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Расчет налога на имущество (проблема с Декларацией по налогу на имущество по нескольким ОКТМО)</div>
+                    <div class="item-desc">Решение проблемы с автоматическим заполнением декларации по налогу на имущество</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778998?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FСкрытие%20персональных%20данных.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Скрытие персональных данных</div>
+                    <div class="item-desc">Инструкция по использованию обработки "Скрытие конфиденциальной информации" в 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/68733735?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FСчета%2060311%20и%2060312.Ошибка%20при%20проведении%20документа%20%22Открытие%20счетов%20ан.%20учета%22.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Счета 60311 и 60312. Ошибка при проведении документа Открытие счетов аналитического учета</div>
+                    <div class="item-desc">Предоставлено решение устранения ошибки открытия счетов 60311 и 60312</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

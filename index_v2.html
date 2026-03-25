@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        .search-container {
+            max-width: 450px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+        
+        .tree-controls {
+            max-width: 450px;
+            margin: 0 auto 16px;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        
+        .tree-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tree-btn:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+        
+        .types-nav {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .type-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        
+        .type-link:hover {
+            color: #3b82f6;
+        }
+        
+        .type-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #94a3b8;
+        }
+        
+        .type-link:hover .type-dot {
+            background: #3b82f6;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        
+        .results-info {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        
+        .tree {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        /* Level colors */
+        .tree > .folder { background: #dbeafe; border-left: 4px solid #3b82f6; }
+        .tree > .folder > .nested-children > .folder { background: #dcfce7; border-left: 4px solid #22c55e; }
+        .tree > .folder > .nested-children > .folder > .nested-children > .folder { background: #f3e8ff; border-left: 4px solid #a855f7; }
+        .tree > .folder > .nested-children > .folder > .nested-children > .folder > .nested-children > .folder { background: #fce7f3; border-left: 4px solid #ec4899; }
+        
+        .folder {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .folder-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            user-select: none;
+        }
+        
+        .folder-header:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .folder-toggle {
+            width: 12px;
+            height: 12px;
+            color: #64748b;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        
+        .folder-toggle:hover {
+            color: #3b82f6;
+        }
+        
+        .folder.collapsed .folder-toggle {
+            transform: rotate(-90deg);
+        }
+        
+        .folder-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        
+        .folder-name {
+            font-weight: 600;
+            flex: 1;
+            font-size: 0.85rem;
+        }
+        
+        .folder-badge {
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .folder-description {
+            color: #475569;
+            font-size: 0.85rem;
+            padding: 4px 12px 10px 42px;
+            display: none;
+        }
+        
+        .folder:hover > .folder-description {
+            display: block;
+        }
+        
+        .folder.collapsed > .folder-description,
+        .folder.collapsed > .nested-children {
+            display: none;
+        }
+        
+        .nested-children {
+            padding-left: 16px;
+            padding-bottom: 6px;
+        }
+        
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: white;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            margin-right: 8px;
+        }
+        
+        .item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+        }
+        
+        .item-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        
+        .item-name {
+            flex: 1;
+            font-size: 0.8rem;
+        }
+        
+        .item-link {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .item-link:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+        }
+        
+        .item-link svg {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        
+        .search-results {
+            display: none;
+        }
+        
+        .search-results.active {
+            display: block;
+        }
+        
+        .search-result-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            color: #334155;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        
+        .search-result-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+        }
+        
+        .search-result-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .search-result-content {
+            flex: 1;
+        }
+        
+        .search-result-name {
+            font-weight: 500;
+            font-size: 13px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .search-result-desc {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .search-result-path {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        
+        .search-result-link {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+        }
+        
+        .search-result-link:hover {
+            background: #2563eb;
+        }
+        
+        .search-result-link svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.4rem; }
+            .container { padding: 16px 12px; }
+            .nested-children { padding-left: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Поисковик репозитория ДКС</h1>
+            <p class="subtitle">Находите нужные документы, курсы и инструкции</p>
+        </header>
+        
+        <div class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </div>
+        
+        <div class="search-container">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск...">
+        </div>
+        
+        <div class="tree-controls">
+            <button class="tree-btn" onclick="expandAll()">Развернуть все</button>
+            <button class="tree-btn" onclick="collapseAll()">Свернуть все</button>
+        </div>
+        
+        <div class="results-info" id="resultsInfo"></div>
+        <div class="search-results" id="searchResults"></div>
+        <div class="tree" id="tree"></div>
+    </div>
+
+    <script>
+        const data = [
+            {
+                name: "Общие документы ДКС",
+                type: "Папка",
+                description: "",
+                tags: [],
+                link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/Общие%20документы%20ДКС/Инструкции%20по%20работе%20в%20ЕИС&openfile=false",
+                children: [
+                    {
+                        name: "Клиенты",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files/19045106?dir=/Репозиторий%20ДКС/Общие%20документы%20ДКС",
+                        children: []
+                    },
+                    {
+                        name: "Кадровые операции",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files/19046822?dir=/Репозиторий%20ДКС/Общие%20документы%20ДКС/Кадровые%20операции",
+                        children: [
+                            {
+                                name: "О выходе из декретного отпуска образец заявления до 3 х лет",
+                                type: "Документ",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/19049978?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%201%20день.doc"
+                            },
+                            {
+                                name: "Образец заявления на админ отпуск на 1 день",
+                                type: "Документ",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/19049978?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%201%20день.doc"
+                            },
+                            {
+                                name: "Образец заявления на админ отпуск на несколько дней",
+                                type: "Документ",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/19049975?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20админ%20отпуск%20на%20несколько%20дней.doc"
+                            },
+                            {
+                                name: "Образец заявления на очередной отпуск 1",
+                                type: "Документ",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/19049969?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20очередной%20отпуск%201.doc"
+                            },
+                            {
+                                name: "Образец заявления на увольнение",
+                                type: "Документ",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/19049966?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FОбразец%20заявления%20на%20увольнение.doc"
+                            },
+                            {
+                                name: "Группы рассылок",
+                                type: "Документ",
+                                description: "Группы рассылок для согласования кадровых операций",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/58172361?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FКадровые%20операции%2FГруппы%20рассылок.xlsx"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Инструкции по работе в ЕИС и другим внутренним системам компании",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files/19051289?dir=/Репозиторий%20ДКС/Общие%20документы%20ДКС/Инструкции%20по%20работе%20в%20ЕИС",
+                        children: [
+                            {
+                                name: "Инструкция Оформление документа Отсутствия сотрудника в ЕИС",
+                                type: "Инструкция",
+                                description: "Инструкция по оформлению документа «Отсутствия сотрудника»",
+                                tags: ["Отсутствие сотрудник", "ЕИС"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/14316397?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20Оформление%20документа%20Отсутствия%20сотрудника%20в%20ЕИС.docx"
+                            },
+                            {
+                                name: "Инструкция по подключению к боту Телеграм (1)",
+                                type: "Инструкция",
+                                description: "Инструкция по подключению Телеграм бота ЕИС",
+                                tags: ["ЕИС", "телеграм"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/9537881?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20подключению%20к%20боту%20Телеграм%20(1).pptx"
+                            },
+                            {
+                                name: "Инструкция по подключению к терминалу Волга Рарус",
+                                type: "Инструкция",
+                                description: "Инструкция по подключению к терминалу Волга Рарус, если есть проблемы с подключением",
+                                tags: ["Волга рарус", "Сервер 1"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/8392706?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20подключению%20к%20терминалу%20Волга%20Рарус%2C%20если%20есть%20проблемы%20с%20подключением.docx"
+                            },
+                            {
+                                name: "Инструкция по работе с поручениями в ЕИС",
+                                type: "Инструкция",
+                                description: "Инструкция по работе с поручениями в ЕИС",
+                                tags: ["ЕИС", "поручения"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/9537866?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20работе%20с%20поручениями%20в%20ЕИС.pdf"
+                            },
+                            {
+                                name: "Инструкция по самооценке сотрудников в ЕИС",
+                                type: "Инструкция",
+                                description: "Инструкция для отражения самооценки компетенций в ЕИС",
+                                tags: ["ЕИС", "самооценка", "компетенции"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/10288901?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20самооценке%20сотрудников%20в%20ЕИС.docx"
+                            },
+                            {
+                                name: "Перечень причин и комментарий для указания в ЕИС",
+                                type: "Инструкция",
+                                description: "Рекомендации по указанию Причин, комментарий в АРМ специалиста к обращениям в ЕИС",
+                                tags: ["ЕИС"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/7745745?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FПеречень%20причин%20и%20комментарий%20для%20указания%20в%20ЕИС.xlsx"
+                            },
+                            {
+                                name: "Работа с ЕИС по задачам и отчетам",
+                                type: "Инструкция",
+                                description: "Бизнес-процесс обработки обращений в ЕИС",
+                                tags: ["ЕИС"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/22483997?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FРабота%20с%20ЕИС%20по%20задачам%20и%20отчетам%20(3).docx"
+                            },
+                            {
+                                name: "Создание Обращения в техслужбу Рарус-Казань",
+                                type: "Инструкция",
+                                description: "Создание обращения в ЕИС для ОСР",
+                                tags: ["ЕИС"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/22483976?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FСоздание%20Обращения%20в%20техслужбу%20Рарус-Казань%20(1).pptx"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Полезные ссылки для новых сотрудников",
+                        type: "Документ",
+                        description: "Перечень информации, с которой должен ознакомиться новый сотрудник",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/onlyoffice/22478552?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FПолезные%20ссылки%20для%20новых%20сотрудников.xlsx"
+                    }
+                ]
+            },
+            {
+                name: "ОМКС",
+                type: "Папка",
+                description: "",
+                tags: [],
+                link: "https://drive.rarus.ru/apps/files/files/19045124?dir=/Репозиторий%20ДКС/ОМКС",
+                children: [
+                    {
+                        name: "База знаний ОМКС",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files/12125075?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС",
+                        children: [
+                            {
+                                name: "1С Профессионал ЕРП 2022 г с разбором ответов",
+                                type: "Папка",
+                                description: "Предоставлены ответы с разбором вопросов по экзамену 1С Профессионал ЕРП от 2022г. База для подготовки размещена по ссылке https://cloud.mail.ru/public/eYZo/LjcFsSh1t",
+                                tags: ["Проф ЕРП"],
+                                link: "https://drive.rarus.ru/apps/files/files/62463111?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%20Профессионал%20ЕРП%202022%20г%20с%20разбором%20ответов",
+                                children: []
+                            },
+                            {
+                                name: "1С:УХ",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/37252346?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ",
+                                children: [
+                                    {
+                                        name: "Бюджетирование в 1С:Управление холдингом",
+                                        type: "Курс",
+                                        description: "Цель курса: предоставить знания о подсистемах Бюджетирование, Управление мастер-данными, Управление инвестициями системы 1С: Управление холдингом 8. Курс включает: знакомство с решением, настройку системы, интеграцию, разработку бюджетных форм, подготовку отчетности, управление проектами.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/40623995?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Бюджетирование%20в%201С%3AУправление%20холдингом"
+                                    },
+                                    {
+                                        name: "Казначейство в программе 1С УХ 8",
+                                        type: "Курс",
+                                        description: "Курс Корпоративное казначейство в системе 1С: Управление холдингом редакция 3.2. Цели: дать представление о базовой функциональности системы в части процессов казначейства, обучить практическим навыкам настройки, подготовить к работе в Системе.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/50052417?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Казначейство%20в%20программе%3A1С%20УХ%208"
+                                    },
+                                    {
+                                        name: "Обзор прикладных решений 1С:Управление холдингом и 1С:ERP Управление холдингом",
+                                        type: "Курс",
+                                        description: "ОБЗОР ПРИКЛАДНЫХ РЕШЕНИЙ 1С:УПРАВЛЕНИЕ ХОЛДИНГОМ И 1С:ERP УПРАВЛЕНИЕ ХОЛДИНГОМ",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/37257230?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Обзор%20прикладных%20решений%201С%3AУправление%20холдингом%20и%201С%3AERP%20Управление%20холдингом"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Видео курсы ЕРП",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/8805347?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП",
+                                children: [
+                                    {
+                                        name: "Подготовка к экзамену ЕРП Спец-конс РЕГЛ",
+                                        type: "Курс",
+                                        description: "Курс от 2022 года. Детальный разбор типового билета, аналогичного принимаемому на экзамене, анализ частых ошибок и способы их устранения.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/22664894?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20ЕРП%20Спец-конс%20РЕГЛ"
+                                    },
+                                    {
+                                        name: "Подготовка к экзамену ЕРП Спец-конс УПР",
+                                        type: "Курс",
+                                        description: "Курс от 2024 года — готовый план подготовки с разбором нюансов и готовыми решениями.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/33662573?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20ЕРП%20Спец-конс%20УПР"
+                                    },
+                                    {
+                                        name: "Подготовка к экзамену Спец-конс по бюджетированию",
+                                        type: "Курс",
+                                        description: "Курс от 2024 года из 3 частей: Подготовка (теория, решение заданий), Действие (контрольный пример), Результат (итоги и вопросы по аттестации).",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/11851041?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20Спец-конс%20по%20бюджетированию"
+                                    },
+                                    {
+                                        name: "Курс Концепция прикладного решения ЕРП",
+                                        type: "Курс",
+                                        description: "Обновленный курс от января 2026 г. Задача курса: показать возможности 1С:ERP — от планирования производства до подготовки регламентированной отчётности.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/78195477?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Курс%20Концепция%20прикладного%20решения%20ЕРП"
+                                    },
+                                    {
+                                        name: "2017.06.14_Производство в 1С ERP 2.2",
+                                        type: "Вебинар",
+                                        description: "Курс от 2017 года по производству в ЕРП.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/8808056?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП&editing=false&openfile=true"
+                                    },
+                                    {
+                                        name: "2019-07-09_1С-Рарус_Регламентированный учет в ERP_Часть1",
+                                        type: "Вебинар",
+                                        description: "Курс от 2019 года по блоку РЕГ учет в ERP часть 1.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/8805503?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП&editing=false&openfile=true"
+                                    },
+                                    {
+                                        name: "2019.07.16_Рарус_Москва_Регламентированный учет в ERP Часть 2",
+                                        type: "Вебинар",
+                                        description: "Курс от 2019 года по блоку РЕГ учет в ERP часть 2.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/8805881?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП&editing=false&openfile=true"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Вебинар Теория ПБУ 18",
+                                type: "Вебинар",
+                                description: "Вебинар состоит из 2-ух частей. Обучение ПБУ 18",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/8807321?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Вебинар%20Теория%20ПБУ%2018"
+                            },
+                            {
+                                name: "Документооборот",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/14501644?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Документооборот",
+                                children: [
+                                    {
+                                        name: "ЭДО: станьте уверенным пользователем",
+                                        type: "Курс",
+                                        description: "Цель курса - применение юридически значимого ЭДО между контрагентами. Рассматриваются законодательные и технологические основы ЭДО, практика применения в хозяйственной жизни.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/14502253?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Документооборот/ЭДО%3A%20станьте%20уверенным%20пользователем"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Заметки по работе с Drive",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/11850911?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Заметки%20по%20работе%20с%20Drive",
+                                children: []
+                            },
+                            {
+                                name: "Идеи для доработок",
+                                type: "Папка",
+                                description: "Подсмотренные идеи по доработкам на проектах или на просторах интернета. Например идея по созданию обработки формирователя документов",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/50098755?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Идеи%20для%20доработок",
+                                children: []
+                            },
+                            {
+                                name: "Курс 1С:Кабинет сотрудника",
+                                type: "Курс",
+                                description: "1С:Кабинет сотрудника – обзор и основы использования. В курсе рассматриваются: упрощённые маршруты согласования заявлений; дистанционный приём на работу; новые виды заявлений; маршруты согласования по должности; работа с личными данными.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/74996663?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%201С%3AКабинет%20сотрудника"
+                            },
+                            {
+                                name: "Курс 1С:Тестировщик",
+                                type: "Курс",
+                                description: "Знакомство с 1С:Тестировщиком. Курс полезен для тестирования и проверки информационных баз, а также для автоматизации бизнес-процессов.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/61584933?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%201С%3AТестировщик"
+                            },
+                            {
+                                name: "КУРС ИИ",
+                                type: "Курс",
+                                description: "Цель курса: Подключать большие языковые модели к системе 1С, автоматизировать рутинные задачи с помощью ИИ, создавать умные решения для обработки документов.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/КУРС%20ИИ&openfile=false"
+                            },
+                            {
+                                name: "Курс по запросам",
+                                type: "Курс",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/12470702?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%20по%20запросам"
+                            },
+                            {
+                                name: "Курс по маркировке",
+                                type: "Курс",
+                                description: "Цель курса: Формирование комплексного понимания встраивания и изменения бизнес-процессов торговых и производственных предприятий при включении продукции в список обязательной маркировки РФ (Честный знак).",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/71110698?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%20по%20маркировке"
+                            },
+                            {
+                                name: "Лицензирование программных продуктов",
+                                type: "Документ",
+                                description: "Полезные ссылки. На портале ИТС можно самостоятельно получить данные о владельце лицензии, текущем состоянии ПИН-кодов лицензии, а также получить резервный ПИН-код.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/11677220?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Лицензирование%20программных%20продуктов"
+                            },
+                            {
+                                name: "Моделирование бизнес-процессов в нотации BPMN",
+                                type: "Книга",
+                                description: "В. Репин. Пособие для начинающих...",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/77116209?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FМоделирование%20бизнес-процессов%20в%20нотации%20BPMN.pdf"
+                            },
+                            {
+                                name: "Обучение по ТЛЭ",
+                                type: "Вебинар",
+                                description: "Курс Транспортная логистика, экспедирование и управление автотранспортом. Концепция интерфейса, описание работы в программе.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/64727412?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20по%20ТЛЭ"
+                            },
+                            {
+                                name: "Обучение по ТОИР",
+                                type: "Курс",
+                                description: "Обучение работы в системе Техническое обслуживание и ремонт оборудования (1С: ТОиР).",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20по%20ТОИР&openfile=false"
+                            },
+                            {
+                                name: "Обучение качественному тестированию в 1С для методологов и разработчиков 2026г",
+                                type: "Папка",
+                                description: "Собраны материалы по обучению, которое проводилось для методологов ОМКС по качественному тестированию. Предоставлен курс по Ванессе.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/71147937?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20качественному%20тестированию%20в%201С%20для%20методологов%20и%20разработчиков%202026г%20от%20Бикчентаевой%20А.%20и%20Яковлевой%20А.",
+                                children: [
+                                    {
+                                        name: "Обучение для методологов Качественное тестирование",
+                                        type: "Вебинар",
+                                        description: "Видео запись обучения по качественному тестированию в 1С для методологов и разработчиков 2026г от Бикчентаевой А. и Яковлевой А. Предоставлены дополнительные материалы по обучению в виде шаблонов.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/77906047?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20качественному%20тестированию%20в%201С%20для%20методологов%20и%20разработчиков%202026г%20от%20Бикчентаевой%20А.%20и%20Яковлевой%20А./Обучение%20для%20методологов%20%22Качественное%20тестирование%22"
+                                    },
+                                    {
+                                        name: "Курс Сценарное тестирование Vanessa",
+                                        type: "Курс",
+                                        description: "Vanessa Automation, Turbo Gherkin, Git и GitHub, создание тестовых данных, причины падения тестов. Разберем инструменты и практику авто-тестирования конфигураций 1С.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/61985028?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20качественному%20тестированию%20в%201С%20для%20методологов%20и%20разработчиков%202026г%20от%20Бикчентаевой%20А.%20и%20Яковлевой%20А./Курс%20Сценарное%20тестирование%20Vanessa"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Основы 1С:ТКС",
+                                type: "Курс",
+                                description: "Онлайн-курс Организация сопровождения решений 1С и информационных систем на основе 1С:Технологии корпоративного сопровождения 2.0 (1С:ТКС).",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/29355469?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Основы%201С%3AТКС"
+                            },
+                            {
+                                name: "Полезные Обработки и запросы",
+                                type: "Папка",
+                                description: "Предоставлены обработки, которые применяются в работе у методологов.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/8787371?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы",
+                                children: [
+                                    {
+                                        name: "ConsQuery7_8.2",
+                                        type: "Обработка",
+                                        description: "Консоль запросов для обычных форм (для 1С:УПП). Все консоли УПП https://infostart.ru/1c/articles/1828459/#1",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ConsSel_Managed_8_2",
+                                        type: "Обработка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "XML82",
+                                        type: "Обработка",
+                                        description: "Обработка ВыгрузкаЗагрузкаДанныхXML82 реализует 2 режима работы: Выгрузки (создание файла выгрузки указанных пользователем данных) и Загрузки (чтение файла выгрузки и запись имеющихся в нем данных).",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Как массово поменять ВРЕМЯ у документов",
+                                        type: "Обработка",
+                                        description: "Как с помощью типовой обработки Групповое изменение реквизитов массово изменить ВРЕМЯ у документов с перепроведением.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Информация по пользователям ИБ (табличный документ)",
+                                        type: "Обработка",
+                                        description: "Формирует отчет со сведениями о пользователях информационной базы в виде табличного документа.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ЗагрузкаДанныхИзExcel_22022022",
+                                        type: "Обработка",
+                                        description: "Внешняя обработка для загрузки данных из табличного документа, например Excel.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ЗагрузкаДанныхИзExcel_2202202223",
+                                        type: "Обработка",
+                                        description: "Внешняя обработка для загрузки данных из табличного документа, например Excel.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ЗапускПодПользователем_v3",
+                                        type: "Обработка",
+                                        description: "Обработка выполняет запуск системы под выбранными пользователями. При запуске у пользователей будет снята windows-аутентификация.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Запрос для упр.форм проверка по ВР 09 и 77",
+                                        type: "Обработка",
+                                        description: "Запрос для управляемых форм по проверке 09 и 77 счетов БУ со счетами по ВР по остаткам.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ВыгрузкаЗагрузкаJSON_1.2.1_8.3+",
+                                        type: "Обработка",
+                                        description: "Простой перенос через JSON данных между двумя базами 1С. Аналогична типовой Выгрузка/загрузка XML, но для отличающихся конфигураций.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Примеры запросов от Бикчентаевой Альбины",
+                                        type: "Обработка",
+                                        description: "Примеры запросов с видеообучением от Бикчентаевой А. Запись собрания группы РСБУ на УПП.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Обработки пересчета Итогов",
+                                        type: "Обработка",
+                                        description: "Примерное описание: https://infostart.ru/1c/tools/1383275/. Включение/выключение использования итогов, изменение периода рассчитанных итогов, пересчет итогов.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Обработки на НХК",
+                                        type: "Обработка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/9727721?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы/Обработки%20на%20НХК"
+                                    },
+                                    {
+                                        name: "Консоль запросов (упр. интерфейс)",
+                                        type: "Обработка",
+                                        description: "Инструмент \"Консоль запросов\" предназначена для отладки и просмотра результатов выполнения запросов в режиме 1С:Предприятие 8.2. Данная обработка предназначена в основном для разработчиков конфигураций и специалистов по внедрению. Данный инструмент можно использовать только в управляемом режиме.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Консоль запросов и обработчик",
+                                        type: "Обработка",
+                                        description: "Консоль запросов для разработчиков с последующей обработкой результата запроса",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "КонсольЗапросовУФ_8.3.2.7",
+                                        type: "Обработка",
+                                        description: "Инструмент \"Консоль запросов\" предназначена для отладки и просмотра результатов выполнения запросов в режиме 1С:Предприятие 8.2. Данная обработка предназначена в основном для разработчиков конфигураций и специалистов по внедрению. Данный инструмент можно использовать только в управляемом режиме.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "ПоискИЗаменаЗначений83_КорректировкаРегистров",
+                                        type: "Обработка",
+                                        description: "Примерное описание: https://its.1c.ru/db/metod8dev/content/3683/hdoc или https://buhexpert8.ru/obuchenie-1s/administrirovanie-1s/poisk-i-zamena-znachenij-1s-8-3.html Универсальная обработка \"Поиск и замена значений\" предназначена для поиска и замены ссылочных значений в различных объектах информационной базы.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "PUBID_284674-ЗагрузкаДанныхИзТабличногоДокумента_в операцию(Управляемые формы)",
+                                        type: "Обработка",
+                                        description: "ОСТОРОЖНО! Проверить на копии и с разрабом! Обработка предназначена для загрузки данных в документ Операция из табличного документа.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "СДРНавигаторУпр",
+                                        type: "Обработка",
+                                        description: "Возможное описание: https://infostart.ru/1c/tools/931586/ Универсальная внешняя обработка для просмотра метаданных конфигураций баз 1С 8.3. Отображает свойства и реквизиты объектов конфигурации, их количество, основные права доступа и т.д.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "СравнениеДвухОбъектов",
+                                        type: "Обработка",
+                                        description: "Сравнивает два выбранных объекта и показывает различия между ними. Например два заказа, или две реализации. Подсвечивает разницу в реквизитах и позволяет посмотреть табличную часть.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Тест COM-подключения (упрощенный)",
+                                        type: "Обработка",
+                                        description: "Обработка для тестирования COM-соединения. Позволяет проверить корректность подключения к базе данных через COM.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Просмотр и редактирование права доступа",
+                                        type: "Обработка",
+                                        description: "Примерное описание: https://infostart.ru/1c/tools/506884/ Обработка для просмотра прав доступа по ролям, состав ролей по метаданным, матрица роли пользователей и редактирование права доступа пользователей для любой конфигурации на платформе 8.2 и 8.3, управляемые формы.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Просмотр права доступа по ролям",
+                                        type: "Обработка",
+                                        description: "Просмотр права доступа по ролям, для любых конфигураций 8.2 и 8.3 с поддержкой УФ.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Редактор реквизитов (упр. и обыч. формы)",
+                                        type: "Обработка",
+                                        description: "Примерное описание: https://infostart.ru/1c/tools/350823/ Универсальный редактор реквизитов с полезными функциями. Позволяет вручную редактировать данные объекты конфигурации без учета ограничений накладываемых интерфейсом или процедурами выполняемыми при записи объектов.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    },
+                                    {
+                                        name: "Редактор_Движений_упр_и_обыч_формы_Copy_2",
+                                        type: "Обработка",
+                                        description: "Возможное описание: https://infostart.ru/1c/tools/875797/ Универсальная обработка для непосредственного редактирования движений документов на обычных и управляемых формах, подходит для любых конфигураций 1С на 8.3 и 8.2.",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Полезные%20Обработки%20и%20запросы&openfile=false"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Книги, методички, курсы по платформе",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/8107782?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе",
+                                children: [
+                                    {
+                                        name: "101 Совет начинающим разработчикам",
+                                        type: "Книга",
+                                        description: "101 совет начинающий разработчикам...",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/onlyoffice/13736080?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2F101%20Совет%20начинающим%20разработчикам.pdf"
+                                    },
+                                    {
+                                        name: "Горячие клавиши",
+                                        type: "Документ",
+                                        description: "Топ полезных горячих клавиш в 1С",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/onlyoffice/73776595?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FГорячие%20клавиши.docx"
+                                    },
+                                    {
+                                        name: "Инструкции по работе с конфигуратором и хранилищем",
+                                        type: "Инструкция",
+                                        description: "Информация по подключению к хранилищу...",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/onlyoffice/8107809?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FИнструкции%20по%20работе%20с%20конфигуратором%20и%20хранилищем.docx"
+                                    },
+                                    {
+                                        name: "Курс по СКД",
+                                        type: "Курс",
+                                        description: "Курс от 2011 года...",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/11765459?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Курс%20по%20СКД"
+                                    },
+                                    {
+                                        name: "Спец платформа",
+                                        type: "Документ",
+                                        description: "Примеры решения задания 1 и 2 экзамена Специалиста по платформе",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Спец%20платформа&openfile=false"
+                                    },
+                                    {
+                                        name: "Знакомство с платформой для методологов от Ирины Кардапольцевой с книгами и методичками",
+                                        type: "Папка",
+                                        description: "Курс по платформе 8 от Ирины Кардапольцевой...",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/12128696?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Знакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками",
+                                        children: [
+                                            {
+                                                name: "Методичка Знакомство с платформой",
+                                                type: "Книга",
+                                                description: "Методические материалы курса обучения \"Знакомство с платформой\"",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/13734919?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FЗнакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками%2FМетодичка%20Знакомство%20с%20платформой.pdf"
+                                            },
+                                            {
+                                                name: "Методичка Основные механизмы платформы",
+                                                type: "Книга",
+                                                description: "Методические материалы курса обучения \"Знакомство с платформой\". Целостное представление о назначении и функциональных возможностях системы \"1С:Предприятие 8\" на базе платформы \"1С:Предприятие 8.3\". В ходе курса будут рассмотрены темы, необходимые для качественной подготовки к экзамену 1С:Профессионал.",
+                                                tags: ["Ключевые тезисы"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/13735018?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FЗнакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками%2FМетодичка%20Основные%20механизмы%20платформы.pdf"
+                                            },
+                                            {
+                                                name: "Методичка Основы программирования",
+                                                type: "Книга",
+                                                description: "Методические материалы курса обучения \"Знакомство с платформой\". Данный курс является базовым по практическому освоению программирования в системе 1С:Предприятие 8. Курс предназначен для ознакомления слушателей с базовыми задачами и возможностями программирования в системе \"1С:Предприятие 8\".",
+                                                tags: ["Ключевые тезисы"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/13734922?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FЗнакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками%2FМетодичка%20Основы%20программирования.pdf"
+                                            },
+                                            {
+                                                name: "Обучение Ирины Кардапольцевой по платформе",
+                                                type: "Вебинар",
+                                                description: "Вебинар для методологов по основным объектам метаданных. Проводит Кардапольцева Ирина",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/files/files/64238862?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Знакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками&editing=false&openfile=true"
+                                            },
+                                            {
+                                                name: "ч.1-20240531T075520Z-001",
+                                                type: "Курс",
+                                                description: "Два видео. Курс по платформе 8 от Ирины Кардапольцевой. Цель курса - дать слушателям начальное представление о работе с основными объектами и механизмами платформы, сформировать у них практические навыки по работе в системе на примере решения так называемого \"сквозного\" примера.",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/files/files/12128696?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Знакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Порядок обращений на линию консультаций 1С:ERP",
+                                type: "Инструкция",
+                                description: "Инструкция по обращению на линию консультации техподдержки по 1С:ЕРП.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/40273520?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FПорядок%20обращений%20на%20линию%20консультаций%201С%3AERP.docx"
+                            },
+                            {
+                                name: "Ссылка на Афина: Видео инструкция по работе с ЕИС",
+                                type: "Инструкция",
+                                description: "Для специалистов технической поддержки (администраторы и исполнители) создание обращений в ЕИС, полный жизненный цикл работы с обращениями в ЕИС.",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/13799995?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС&editing=false&openfile=true"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Инструкции, шаблоны, рекомендации и регламенты для методологов ОМКС",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/Инструкции%2C%20шаблоны%20и%20регламенты%20для%20методологов%20ОМКС&openfile=false",
+                        children: [
+                            {
+                                name: "Инструкции по организации работы сотрудников",
+                                type: "Инструкция",
+                                description: "Документ содержит методические рекомендации для сотрудников по следующим вопросам: Больничный — порядок информирования при уходе на больничный (для специалистов и руководителей групп). Работа в отпуске/на больничном — правила уведомления и отражения отработанных часов в ЕИС. Ежедневная работа — сдача отчётов до 10:00, порядок обращения к руководству, взаимодействие с разработчиками, инициативность. Инвентаризация обращений — закрытие обращений, возврат от разработчиков, контроль статуса задач. Оценка сотрудников — порядок заполнения документа «Оценка сотрудника». Изменения по задачам F.6 — правила возврата задач при простое более 8 часов. Банк знаний — созданный ресурс для хранения информации.",
+                                tags: ["Методические рекомендации", "Организация работы", "Больничный", "Отпуск", "Уведомление", "Ежедневные отчёты", "Оценка сотрудников", "Инвентаризация", "Банк знаний", "1С", "Методология", "Руководитель группы", "Специалист", "Документооборот", "Рабочий процесс"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/8107329?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%20и%20регламенты%20для%20методологов%20ОМКС%2FИнструкции%20по%20организации%20работы%20сотрудников.docx"
+                            },
+                            {
+                                name: "Пример оформления Задания",
+                                type: "Шаблон",
+                                description: "Пример оформления документа \"Задание\" для клиентов",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/24646856?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%2C%20рекомендации%20и%20регламенты%20для%20методологов%20ОМКС%2FПример%20оформления%20Задания%20.docx"
+                            },
+                            {
+                                name: "Пример Реестра требований",
+                                type: "Шаблон",
+                                description: "Пример оформления документа \"Реестр требований\" для клиентов",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/24646589?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%2C%20рекомендации%20и%20регламенты%20для%20методологов%20ОМКС%2FПример%20Реестра%20требований.xlsx"
+                            },
+                            {
+                                name: "Примеры спецификации требований",
+                                type: "Шаблон",
+                                description: "Примеры СТ от Бикчентаевой А",
+                                tags: ["Шаблон СТ", "Пример СТ"],
+                                link: "https://drive.rarus.ru/apps/files/files/78625067?dir=/Репозиторий%20ДКС/ОМКС/Инструкции%2C%20шаблоны%2C%20рекомендации%20и%20регламенты%20для%20методологов%20ОМКС/Примеры%20СТ"
+                            },
+                            {
+                                name: "Регламент НХК Работа по доработкам с клиентами_Этап Накопление требований",
+                                type: "Регламент",
+                                description: "Скрипты и шаблоны по ведению переписки с клиентами при обработки обращений для клиента Татшина. Актуально для всех клиентов",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/8801432?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%20и%20регламенты%20для%20методологов%20ОМКС%2FРегламент%20НХК%20Работа%20по%20доработкам%20с%20клиентами_Этап%20Накопление%20требований.docx"
+                            },
+                            {
+                                name: "Регламент работы с обращениями по которым необходимо подключение разработчиков",
+                                type: "Регламент",
+                                description: "Регламент работы с обращениями для передачи задачи для распределения на разработчиков в отдел ОРКС",
+                                tags: ["ЕИС"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/25361170?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%20и%20регламенты%20для%20методологов%20ОМКС%2FРегламент_работы_с_обращениями_по%20которым%20необходимо%20подключение%20разработчиков.docx"
+                            },
+                            {
+                                name: "Рекомендации по подготовке спецификаций требований",
+                                type: "Шаблон",
+                                description: "Шаблон СТ. Документ предназначен для методолога/аналитика является памяткой для подготовки спецификаций требований. В документе приводится общий алгоритм функционального проектирования, а также шаблоны и образцы для описания следующих структур: справочник, регистр сведений, регистр накопления, документ, отчет, обработка.",
+                                tags: ["Шаблон СТ"],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/21929540?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FИнструкции%2C%20шаблоны%2C%20рекомендации%20и%20регламенты%20для%20методологов%20ОМКС%2FРекомендации%20по%20подготовке%20спецификаций%20требований.docx"
+                            }
+                        ]
+                    },
+                    {
+                        name: "ОМКС группа РСБУ",
+                        type: "Папка",
+                        description: "",
+                        tags: [],
+                        link: "https://drive.rarus.ru/apps/files/files/7747545?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ",
+                        children: [
+                            {
+                                name: "Банк знаний РСБУ",
+                                type: "Папка",
+                                description: "",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/7964360?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний",
+                                children: [
+                                    {
+                                        name: "01. Функциональная область РСБУ",
+                                        type: "Папка",
+                                        description: "Материалы по функциональной области РСБУ (нормативные документы, законодательство)",
+                                        tags: ["Функциональная область", "РСБУ", "законодательство", "нормативные документы"],
+                                        link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/01.%20Функциональная%20область%20РСБУ&openfile=false",
+                                        children: [
+                                            {
+                                                name: "Изменения в законодательстве от 1 января 2025",
+                                                type: "Документ",
+                                                description: "Изменения в законодательстве с 1 января 2025 года",
+                                                tags: ["Законодательство", "Изменения"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/61394748?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F01.%20Функциональная%20область%20РСБУ%2FИзменения_в_законодательстве_от_1_января_2025.docx"
+                                            },
+                                            {
+                                                name: "Распоряжение 2026 г Правительства № 4176-р. ОКВЭД для льготных ставок по УСН",
+                                                type: "Документ",
+                                                description: "Распоряжение Правительства РФ о перечне ОКВЭД для льготных ставок по УСН",
+                                                tags: ["ОКВЭД", "УСН", "льготы", "2026", "распоряжение"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/73778057?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F01.%20Функциональная%20область%20РСБУ%2FРаспоряжение%202026%20гПравительства%20№%204176-р%20%2C%20которое%20определило%20перечень%20ОКВЭД%20для%20льготных%20ставок%20по%20УСН.pdf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "02. 1С ЕРП",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/7965806?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний%20РСБУ/02.%201С%20ЕРП",
+                                        children: [
+                                            {
+                                                name: "_ Налог на прибыль в базе ЕРП. Расхождения по БУ и НУ.",
+                                                type: "Консультация",
+                                                description: "Проблема с расхождением налога на прибыль БУ/НУ из-за неверной настройки резерва по ФОТ",
+                                                tags: ["ЕРП", "налог на прибыль", "БУ", "НУ", "резерв"],
+                                                link: "https://drive.rarus.ru/apps/files/files/44444847?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/02.%201С%20ЕРП&editing=false&openfile=true"
+                                            },
+                                            {
+                                                name: "в ЕРП долгосрок высчитывается по длительности цикла 12 мес.",
+                                                type: "Консультация",
+                                                description: "Расчет долгосрочных резервов в ERP по длительности цикла 12 месяцев",
+                                                tags: ["ЕРП", "долгосрок", "себестоимость"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/27412129?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2Fв%20ЕРП%20долгосрок%20высчитывается%20по%20длительности%20цикла%2012%20мес.%20именно%20в%20месяцах%20(ПСП).docx"
+                                            },
+                                            {
+                                                name: "Заполнение Сводная справка НДС. Расхождение суммы в сводной справке НДС и по счету 68.02",
+                                                type: "Папка",
+                                                description: "Проблема задвоения сумм в Отчете о розничных продажах в 1С:ERP из-за несвязанной ККМ",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/files/files/77770375?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/02.%201С%20ЕРП/Заполнение%20Сводная%20справка%20НДС.%20Расхождение%20суммы%20в%20сводной%20справке%20НДС%20и%20по%20счету%2068.02"
+                                            },
+                                            {
+                                                name: "Запрос Заполнение Сводная справка НДС",
+                                                type: "Файл запроса",
+                                                description: "",
+                                                tags: ["1С:ERP", "НДС", "ККМ", "Отчет о розничных продажах", "Кассовые смены", "Счет 68.02"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/31819604?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FЗаполнение%20Сводная%20справка%20НДС.%20Расхождение%20суммы%20в%20сводной%20справке%20НДС%20и%20по%20счету%2068.02%2FЗаполнение%20Сводная%20справка%20НДС.%20Расхождение%20суммы%20в%20сводной%20справке%20НДС%20и%20по%20счету%2068.02.docx"
+                                            },
+                                            {
+                                                name: "Как создать Этап производства вручную",
+                                                type: "Инструкция",
+                                                description: "Инструкция по созданию Этапа производства вручную в 1С:ERP без использования ресурсной спецификации через документ «Заказ на производство» с помощью обработки-помощника.",
+                                                tags: ["1С:ERP", "Производство", "Этап производства", "Заказ на производство", "Структура заказа", "Ресурсная спецификация", "Создание этапов", "Обеспечение", "Выпуск"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/59702481?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FКак%20создать%20Этап%20производства%20вручную.docx"
+                                            },
+                                            {
+                                                name: "Контрагенты с обособленными подразделениями. Отражение КПП в 1С",
+                                                type: "Документ",
+                                                description: "Правила отражения КПП обособленных подразделений контрагентов в 1С:ERP. Заполнение КПП в счетах-фактурах (УПД), книге покупок и книге продаж при расчетах с головной организацией и обособленными подразделениями.",
+                                                tags: ["1С:ERP", "Контрагенты", "Обособленное подразделение", "КПП", "ИНН", "Юридическое лицо", "Счет-фактура", "УПД", "Книга покупок", "Книга продаж", "Списание с расчетного счета", "Поступление товаров", "Грузоотправитель", "ЕГРЮЛ", "Головная организация"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/74847737?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FКонтрагенты%20с%20обособленными%20подразделениями.%20Отражение%20КПП%20в%201с.pdf"
+                                            },
+                                            {
+                                                name: "Не отражаются электронные билеты в авансовом отчете",
+                                                type: "Консультация",
+                                                description: "Проблема неподгрузки электронного билета в авансовый отчет 1С:ERP: система ищет последний проведенный авансовый отчет и сравнивает дату прибытия по билету с датой предыдущего отчета (переведенной в конец дня). Если дата прибытия меньше - билет не подтягивается, только сумма. Предоставлен Запрос",
+                                                tags: ["1С:ERP", "Авансовый отчет", "Электронный билет", "Дата прибытия", "Подотчетное лицо", "ТЧ Расходы", "Регистр накопления", "Командировка", "Заявка на командировку"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/27418510?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FНе%20отражаются%20электронные%20билеты%20в%20авансовым%20отчете%20ПСП.docx"
+                                            },
+                                            {
+                                                name: "Практика в 1С. ПБУ 18.02 по операциям ОС",
+                                                type: "Руководство",
+                                                description: "Практическое руководство по применению ПБУ 18/02 в 1С к операциям с основными средствами: поступление, амортизация, выбытие. Рассмотрены временные и постоянные разницы, отложенные налоговые активы и обязательства, проводки в 1С:ERP и 1С:Бухгалтерия.",
+                                                tags: ["1С", "ПБУ 18/02", "Основные средства", "ОС", "Амортизация", "Временные разницы", "Постоянные разницы", "Отложенный налоговый актив", "Отложенное налоговое обязательство", "Налог на прибыль", "Проводки", "1С:ERP", "1С:Бухгалтерия", "Поступление ОС", "Выбытие ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/22926506?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FПрактика%20в%201С.%20ПБУ%2018.02%20по%20опреациям%20ОС.docx"
+                                            },
+                                            {
+                                                name: "Реализация агентских услуг в ERP",
+                                                type: "Руководство",
+                                                description: "Руководство по реализации агентских услуг в 1С:ERP 2.5. Рассмотрены виды агентских договоров (комиссия, комиссия с принципалом, агрегатор), схемы документооборота, практические примеры отгрузки и поступления товаров/услуг через агента.",
+                                                tags: ["1С:ERP", "Агентские услуги", "Комиссия", "Комиссия с принципалом", "Агрегатор", "Договор комиссии", "Принципал", "Комиссионер", "Реализация", "Поступление", "Документооборот", "НДС", "Счет-фактура", "1С:ERP 2.5"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/71842512?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FРеализация%20агентских%20услуг%20в%20ERP.pdf"
+                                            },
+                                            {
+                                                name: "Реализация товара, который облагается НДС у покупателя",
+                                                type: "Руководство",
+                                                description: "Руководство по отражению в 1С:ERP 2.5 реализации товаров, облагаемых НДС у покупателя (налоговый агент). Рассмотрены документооборот, регистрация контрагента-налогового агента, проводки и формирование книги покупок налоговым агентом.",
+                                                tags: ["1С:ERP", "НДС", "Налоговый агент", "Реализация товаров", "Счет-фактура", "Книга покупок", "Проводки", "1С:ERP 2.5", "НДС у покупателя", "УПД", "Счет-фактура налогового агента"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/22926464?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FРеализация%20товара%2C%20который%20облагается%20НДС%20у%20покупат.docx"
+                                            },
+                                            {
+                                                name: "Учет НДС в программе 1С:ERP 2.5. Влияние вида деятельности НДС на учет стоимости ТМЦ",
+                                                type: "Руководство",
+                                                description: "Руководство по учету НДС в 1С:ERP 2.5. Рассмотрено влияние вида деятельности (общая система налогообложения, спецрежимы) на формирование стоимости ТМЦ, порядок принятия НДС к вычету, восстановление и распределение входящего НДС с практическими примерами расчетов",
+                                                tags: ["1С:ERP", "НДС", "Учет НДС", "ТМЦ", "Вид деятельности", "Спецрежим", "ОСНО", "Входящий НДС", "Вычет НДС", "Восстановление НДС", "Распределение НДС", "Стоимость товаров", "1С:ERP 2.5", "Налоговый учет"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/22926470?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FУЧЕТ%20НДС%20В%20ПРОГРАММЕ%20_1С_ERP%20УПРАВЛЕНИЕ%20ПРЕДПРИЯТИЕМ%202.5_%20%20Влияние%20вида%20деятельности%20НДС%20на%20учет%20стоимости%20ТМЦ.docx"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "03. 1С УПП",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/7964390?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний%20РСБУ/03.%201С%20УПП",
+                                        children: [
+                                            {
+                                                name: "5 шагов к себестоимости",
+                                                type: "Книга",
+                                                description: "Сокращенный вводный курс в производственный учет в 1С:УПП",
+                                                tags: ["Производственный учет", "1С:УПП"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/11766719?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2F5%20шагов%20к%20себестоимости.pdf"
+                                            },
+                                            {
+                                                name: "Алгоритм распределения оплаты труда по плановой себестоимости",
+                                                type: "Консультация",
+                                                description: "Алгоритм распределения оплаты труда по плановой себестоимости в 1С:ERP при изготовлении продукции и оказании услуг. Описан порядок расчета зарплаты производственных рабочих, документы \"Выработка сотрудников\", \"Выпуск продукции\", \"Оказание производственных услуг\", процедура закрытия месяца и расчета себестоимости, а также ручное распределение через документ \"Распределение материалов и работ\".",
+                                                tags: ["1С:ERP", "Оплата труда", "Плановая себестоимость", "Выпуск продукции", "Производственные услуги", "Выработка сотрудников", "Распределение зарплаты", "Себестоимость", "Закрытие месяца", "Производство", "1С:ERP 2.5"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8785706?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FАлгоритм%20распределения%20оплаты%20труда%20по%20плановой%20себестоимости%20на%20изготовление%20продукции%20и%20оказание%20услуг.docx"
+                                            },
+                                            {
+                                                name: "Аренда Консультация",
+                                                type: "Консультация",
+                                                description: "Практическое руководство по отражению учета аренды у арендатора в 1С:УПП согласно ФСБУ 25/2018. Подробно описан порядок поступления в аренду, принятия к учету ППА, начисления амортизации, отражения арендных платежей и процентных расходов, расчета отложенных налоговых активов и обязательств (ОНА/ОНО) с примерами проводок в БУ и НУ.",
+                                                tags: ["1С:УПП", "Аренда", "ФСБУ 25/2018", "ППА", "Право пользования активом", "Арендные платежи", "Амортизация", "Проценты по аренде", "Отложенные налоговые активы", "Отложенные налоговые обязательства", "ОНА", "ОНО", "Временные разницы", "Налог на прибыль", "Бухгалтерский учет", "Налоговый учет", "Счет 76.07", "Счет 01", "Счет 02", "Лизинг", "Учет ОС", "Корректировка записей регистров"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8787638?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FАренда%20Консультация.docx"
+                                            },
+                                            {
+                                                name: "Вопрос по лизингу. Почему образовались ВР",
+                                                type: "Консультация",
+                                                description: "Учет аренды у арендатора в 1С:УПП по ФСБУ 25/2018. Поступление в аренду, принятие к учету ППА, начисление амортизации, арендные платежи, процентные расходы, расчет отложенных налоговых активов и обязательств (ОНА/ОНО) с примерами проводок в БУ и НУ.",
+                                                tags: ["1С:УПП", "Аренда", "ФСБУ 25/2018", "ППА", "Право пользования активом", "Арендные платежи", "Амортизация", "Проценты по аренде", "ОНА", "ОНО", "Временные разницы", "Налог на прибыль", "Бухгалтерский учет", "Налоговый учет", "Счет 76.07", "Счет 01", "Счет 02", "Лизинг", "Учет ОС", "Корректировка записей регистров"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8787845?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FВопрос%20по%20лизингу%20.%20Почему%20образовались%20ВР.docx"
+                                            },
+                                            {
+                                                name: "Инструкция по настройке распределения затрат",
+                                                type: "Инструкция",
+                                                description: "Настройка распределения затрат в 1С:ERP. Настройка способов распределения статей затрат по номенклатурным группам в регистре сведений, использование документа «Распределение прочих затрат», контроль номенклатурных групп в первичных документах.",
+                                                tags: ["1С:ERP", "Распределение затрат", "Статьи затрат", "Номенклатурные группы", "Способы распределения", "Регистр сведений", "Прочие затраты", "Распределение прочих затрат", "Закрытие месяца", "Себестоимость", "ОПР", "Отражение ЗП в регл учете"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8781089?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FИнструкция%20по%20настройке%20распределения%20затрат.docx"
+                                            },
+                                            {
+                                                name: "Использование механизма РАУЗ в УПП",
+                                                type: "Книга",
+                                                description: "В данной книге описана работа в программе «1С:Управление производственным предприятием 8» в режиме расширенной аналитики (РА), начиная от перехода из традиционного режима и заканчивая анализом данных, полученных при работе в режиме РА.",
+                                                tags: ["1С:УПП", "РАУЗ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/11766767?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FИспользование%20механизма%20РАУЗ%20в%20УПП.pdf"
+                                            },
+                                            {
+                                                name: "Корректировка поступления в 1С УПП",
+                                                type: "Инструкция",
+                                                description: "Пошаговая инструкция по оформлению корректировки поступления в 1С:УПП. Виды операций: исправление первичных документов и корректировка по соглашению сторон. Порядок действий: создание документа, ввод счет-фактуры, формирование книг покупок и продаж. Отражение в дополнительных листах при уменьшении и увеличении сумм.",
+                                                tags: ["1С:УПП", "Корректировка поступления", "Поступление товаров и услуг", "Счет-фактура", "Исправление первичных документов", "Корректировка по согласованию сторон", "Книга покупок", "Книга продаж", "Дополнительные листы", "НДС", "Восстановление НДС", "Корректировка прошлых лет", "Регламентные операции НДС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8783229?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FКорректировка%20поступления%20в%201С%20УПП.docx"
+                                            },
+                                            {
+                                                name: "Надо перекинуть с ВР на НУ: как правильно",
+                                                type: "Консультация",
+                                                description: "Пример верной проводки по перекидке с 10.01 на с ВР на НУ",
+                                                tags: ["Проводки УПП", "ВР"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/9678221?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FНадо%20перекинуть%20с%20ВР%20на%20ПР%3A%20как%20правильно.docx"
+                                            },
+                                            {
+                                                name: "Нюансы бухучета при включенной расширенной аналитике (РАУЗ) в 1С:УПП",
+                                                type: "Статья",
+                                                description: "Эта статья предназначена специалистов, внедряющих бухучет в «1С:Управление производственным предприятием 8» (далее УПП), а также для бухгалтеров, работающих в системе. Цель данной статьи – рассмотреть принципы РАУЗ с точки зрения бухгалтерского учета в УПП.",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/11766710?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FНюансы%20бухучета%20при%20включенной%20расширенной%20аналитике%20(РАУЗ)%20в%201С%3AУПП.pdf"
+                                            },
+                                            {
+                                                name: "Оформление валютных операций",
+                                                type: "Консультация",
+                                                description: "Оформление валютных операций в 1С при задолженности в евро и оплате в армянских драмах. Проблема взаиморасчетов при разных валютах в рамках одного договора. Решение через корректировку долга (КЗР) с изменением регистра курсов валют и настройки договора для корректного закрытия 77 счета.",
+                                                tags: ["1С:УПП", "Валютные операции", "Валютный договор", "Курсы валют", "Корректировка долга", "КЗР", "Переоценка валютных средств", "62 счет", "57 счет", "77 счет", "91 счет", "ВР", "Временные разницы", "Налог на прибыль", "Армянские драмы", "Евро", "Условные единицы", "Регистр сведений Курсы валют", "Справка-расчет Переоценка валютных средств в НУ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/7973009?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОформление%20валютных%20операций.docx"
+                                            },
+                                            {
+                                                name: "Ошибка по 43 счету при расчете себестоимости",
+                                                type: "Консультация",
+                                                description: "Проверка и исправление ошибок в ОСВ по счету 43 в РАУЗ. Анализ через ведомость учета МПЗ с группировками. Расчет себестоимости: (сумма на начало + оборот ДТ) / (количество на начало + количество оборот ДТ). Перемещения по складам в расчете не участвуют. Проверка учетной политики по запасам и настроек учета себестоимости.",
+                                                tags: ["1С:УПП", "РАУЗ", "ОСВ", "Счет 43", "Готовая продукция", "Себестоимость", "Расчет себестоимости", "Учет МПЗ", "Ведомость по учету МПЗ", "Аналитика вида учета", "Аналитика распределения затрат", "Перемещение складам", "Учетная политика", "Плановые цены", "Прямые затраты", "Настройка учета себестоимости"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/31479266?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОшибка%20по%2043%20счету%20при%20расчете%20себестоимости.docx"
+                                            },
+                                            {
+                                                name: "Ответ на обращение по расхождению БУ и НУ, по 77 и 09 счету",
+                                                type: "Консультация",
+                                                description: "Решение проблемы расхождения в отчете \"Ведомость амортизации ОС за период\" по БУ и НУ по двум основным средствам на сумму, которая соответствует сумме оборота по 77 и 09 счетам, В НУ не начисляется амортизация по ОС.",
+                                                tags: ["Расхождение", "ошибки налог на прибыль", "УПП", "Амортизация ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8109081?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FОтвет%20на%20обращение%20по%20расхождению%20БУ%20и%20НУ%2C%20по%2077%20и%2009%20счету.docx"
+                                            },
+                                            {
+                                                name: "Отражение арендованных объектов. НДС входящий от поступления услуг аренды не попадает в распределение",
+                                                type: "Консультация",
+                                                description: "Решение проблемы отражения входящего НДС по аренде (ППА) в документе «Распределение НДС косвенных расходов» в 1С:УПП при ведении облагаемых и необлагаемых операций. Два варианта: ручное заполнение через «Корректировку записей регистров» или доработка механизма проведения документа.",
+                                                tags: ["1С:УПП", "ФСБУ 25/2018", "ППА", "Право пользования активом", "Аренда", "НДС", "Косвенные расходы", "Распределение НДС", "Регистр накопления", "Корректировка записей регистров", "НДС предъявленный", "НДС включенный в стоимость", "Облагаемые НДС операции", "Необлагаемые НДС операции", "Доработка 1С"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8109048?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FОтражение%20арендованных%20объектов%20в%20соответствии.%20%20НДС%20входящий%20от%20поступления%20услуг%20аренды%20не%20попадает%20в%20распределение.docx"
+                                            },
+                                            {
+                                                name: "Поиск ошибок по расчету по налогу на прибыль и запросы Лины",
+                                                type: "Папка",
+                                                description: "",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/files/files/44444847?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/02.%201С%20ЕРП&editing=false&openfile=true",
+                                                children: [
+                                                    {
+                                                        name: "Надо перекинуть с ВР на НУ: как правильно",
+                                                        type: "Консультация",
+                                                        description: "Пример верной проводки по перекидке с 10.01 на с ВР на НУ",
+                                                        tags: ["Проводки УПП", "ВР"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/9678221?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FНадо%20перекинуть%20с%20ВР%20на%20ПР%3A%20как%20правильно.docx"
+                                                    },
+                                                    {
+                                                        name: "УПП Проверка расхождения счета 10ВР и 77 09. Поиск ошибки",
+                                                        type: "Консультация",
+                                                        description: "Предоставлен запрос для проверки расхождения счета 10 (ВР) и счетов 77 и 09 (БУ). Описание поиска ошибки, если налог на прибыль по БУ и НУ расходится и проводка 68.04 - 99.09 больше 1 (большая сумма)",
+                                                        tags: ["Расхождение", "ошибки налог на прибыль", "УПП"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8639744?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FУПП%20Проверка%20расхождения%20счета%2010ВР%20и%2077%2009.%20Поиск%20ошибки%20%3AРасходится%20налог%20на%20прибыль.%20Проводка%2068.04-99.09%20большая.docx"
+                                                    },
+                                                    {
+                                                        name: "Ответ на обращение по расхождению БУ и НУ, по 77 и 09 счету",
+                                                        type: "Консультация",
+                                                        description: "Решение проблемы расхождения в отчете \"Ведомость амортизации ОС за период\" по БУ и НУ по двум основным средствам на сумму, которая соответствует сумме оборота по 77 и 09 счетам, В НУ не начисляется амортизация по ОС.",
+                                                        tags: ["Расхождение", "ошибки налог на прибыль", "УПП", "Амортизация ОС"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8109081?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FОтвет%20на%20обращение%20по%20расхождению%20БУ%20и%20НУ%2C%20по%2077%20и%2009%20счету.docx"
+                                                    },
+                                                    {
+                                                        name: "Проверка 09 и 77, Расчет налога на прибыль и поиск ошибок",
+                                                        type: "Консультация",
+                                                        description: "Решение проблемы расхождения налога на прибыль по данным НУ и Бу с помощью запросов Лины",
+                                                        tags: [],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8774963?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FПроверка%2009%20и%2077%2C%20Расчет%20налога%20на%20прибыль%20и%20поиск%20ошибок.docx"
+                                                    },
+                                                    {
+                                                        name: "ЗакрытиеПоискОшибокРАБОЧИЙ_ИСПОЛЬЗОВАТЬ_ОПИСАН",
+                                                        type: "Файл запроса",
+                                                        description: "Запрос Лины, который указан в файле \"Проверка 09 и 77, Расчет налога на прибыль и поиск ошибок\"",
+                                                        tags: [],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8774963?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FПроверка%2009%20и%2077%2C%20Расчет%20налога%20на%20прибыль%20и%20поиск%20ошибок.docx"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                name: "Проверка 09 и 77, Расчет налога на прибыль и поиск ошибок",
+                                                type: "Консультация",
+                                                description: "Решение проблемы расхождения налога на прибыль по данным НУ и Бу с помощью запросов Лины",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8774963?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FПроверка%2009%20и%2077%2C%20Расчет%20налога%20на%20прибыль%20и%20поиск%20ошибок.docx"
+                                            },
+                                            {
+                                                name: "УПП Варианты корректировок реализации",
+                                                type: "Консультация",
+                                                description: "Обзор вариантов корректировки реализации в 1С:УПП. Рассмотрены виды документов: корректировка реализации, исправление первичных документов, корректировка по соглашению сторон, возврат товаров. Порядок отражения в книгах продаж и покупок, дополнительных листах, проводки по НДС и налогу на прибыль в текущем и прошлых периодах.",
+                                                tags: ["1С:УПП", "Корректировка реализации", "Исправление первичных документов", "Корректировка по согласованию сторон", "Возврат товаров", "Книга продаж", "Книга покупок", "Дополнительные листы", "НДС", "Налог на прибыль", "Корректировка прошлых лет", "Проводки", "Регламентные операции НДС", "Счет-фактура", "УПД"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8776331?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FУПП%20Варианты%20корректировок%20реализации.docx"
+                                            },
+                                            {
+                                                name: "УПП Проверка расхождения счета 10ВР и 77 09. Поиск ошибки",
+                                                type: "Консультация",
+                                                description: "Предоставлен запрос для проверки расхождения счета 10 (ВР) и счетов 77 и 09 (БУ). Описание поиска ошибки, если налог на прибыль по БУ и НУ расходится и проводка 68.04 - 99.09 больше 1 (большая сумма)",
+                                                tags: ["Расхождение", "ошибки налог на прибыль", "УПП"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8639744?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FУПП%20Проверка%20расхождения%20счета%2010ВР%20и%2077%2009.%20Поиск%20ошибки%20%3AРасходится%20налог%20на%20прибыль.%20Проводка%2068.04-99.09%20большая.docx"
+                                            },
+                                            {
+                                                name: "ЗакрытиеПоискОшибокРАБОЧИЙ_ИСПОЛЬЗОВАТЬ_ОПИСАН",
+                                                type: "Файл запроса",
+                                                description: "Запрос Лины, который указан в файле \"Проверка 09 и 77, Расчет налога на прибыль и поиск ошибок\"",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8774963?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FПоиск%20ошибок%20по%20расчету%20по%20налогу%20на%20прибыль%20и%20запросы%20Лины%2FПроверка%2009%20и%2077%2C%20Расчет%20налога%20на%20прибыль%20и%20поиск%20ошибок.docx"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "04. 1С Бухгалтерия",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/7965785?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия",
+                                        children: [
+                                            {
+                                                name: "1С УЧЕТ УБЫТКОВ ОТ РЕАЛИЗАЦИИ АМОРТИЗИРУЕМОГО ИМУЩЕСТВА",
+                                                type: "Руководство",
+                                                description: "Учет убытков от реализации амортизируемого имущества в 1С (ERP, УК, УПП). Налоговый учет убытков по ст.268 НК РФ: метод начисления амортизации и линейный метод. Сроки списания убытков по амортизационным группам. Документы: «Реализация товаров услуг», «Принятие к учету ОС», «Подготовка к передаче ОС». Примеры расчетов в программах 1С.",
+                                                tags: ["1С", "Учет убытков", "Амортизируемое имущество", "Реализация ОС", "Ст.268 НК РФ", "Налоговый учет", "Амортизация", "Линейный метод", "Списание убытков", "Амортизационные группы", "1С:ERP", "1С:УК", "1С:УПП", "Реализация товаров услуг", "Подготовка к передаче ОС", "Налог на прибыль"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8716454?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2F1С%20УЧЕТ%20УБЫТКОВ%20ОТ%20РЕАЛИЗАЦИИ%20АМОРТИЗИРУЕМОГО%20ИМУЩЕСТВА.docx"
+                                            },
+                                            {
+                                                name: "АВС электро Документ Принятие к учету ОС дает некорректные проводки на 08 только количество",
+                                                type: "Консультация",
+                                                description: "Сборник ответов на вопросы по 1С:Бухгалтерия 8 (ред. 3.0): ошибки в проводках документа «Принятие к учету ОС», отражение НДС при приобретении ОС и книге покупок, формирование книги продаж при возврате поставщику с отражением контрагента, корректировка поступления прошлого периода без использования счета 41.01, отражение услуги доставки в рознице через счет 62.Р, настройка универсального отчета по книге продаж в разрезе контрагентов.",
+                                                tags: ["1С:Бухгалтерия", "Принятие к учету ОС", "Проводки", "Счет 08", "НДС", "Счет-фактура полученный", "Книга покупок", "Книга продаж", "Возврат поставщику", "Корректировка поступления", "Корректировочный счет-фактура", "Счет 41", "Счет 91", "Розничная торговля", "ОРП", "Отчет о розничных продажах", "Услуга доставка", "Счет 62.Р", "Универсальный отчет", "Регистр накопления НДС Продажи", "Восстановление НДС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8785319?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FАВС%20электро%20Документ%20Принятие%20к%20учету%20ОС%20дает%20некорректные%20проводки%20на%2008%20только%20количество.docx"
+                                            },
+                                            {
+                                                name: "Алгоритм Амортизация ОС",
+                                                type: "Консультация",
+                                                description: "Алгоритм расчета амортизации ОС в 1С:Бухгалтерия. Основная формула: сумма амортизации = стоимость для вычисления амортизации × число дней начисления / число дней срока использования. Источник данных — регистр сведений «Параметры амортизации ОС (Бухгалтерский учет)». Примеры расчета амортизации за месяц и при модернизации.",
+                                                tags: ["1С:Бухгалтерия", "Амортизация ОС", "Расчет амортизации", "Регистр сведений", "Параметры амортизации ОС", "Стоимость для вычисления амортизации", "Ликвидационная стоимость", "Срок использования", "Модернизация ОС", "Основные средства", "Счет 02", "Бухгалтерский учет", "Число дней начисления", "Число дней срока использования"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8785640?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FАлгорит%20Амортизация%20ОС.docx"
+                                            },
+                                            {
+                                                name: "Бух 3.0 КОРП. Ошибки нумерации с-ф, сторно себестоимости",
+                                                type: "Консультация",
+                                                description: "Проблемы с нумерацией счетов-фактур в 1С:Бухгалтерия 3.0 КОРП. Ошибки при автоматической регистрации счетов-фактур на аванс через помощника НДС, при закрытии месяца и при ручной корректировке (с релиза 3.0.146). Способы исправления: ручная перенумерация, групповое изменение реквизитов, тестирование и исправление базы, обновление до последнего релиза. Рекомендация подать уточненную декларацию при расхождениях с контрагентами.",
+                                                tags: ["1С:Бухгалтерия 3.0", "Счет-фактура", "Нумерация счетов-фактур", "Ошибка нумерации", "Перенумерация", "Счет-фактура на аванс", "Помощник по НДС", "Закрытие месяца", "Ручная корректировка", "Релиз 3.0.146", "Групповое изменение реквизитов", "Тестирование и исправление базы", "Декларация по НДС", "Уточненная декларация", "Корректировка НДС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8721923?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FБух%203.0%20КОРП.%20ОШибки%20нумерации%20с-ф%2C%20сторно%20себестоимости.docx"
+                                            },
+                                            {
+                                                name: "Бухгалтерия 3.0 оплата в валюте или в рублях. Частичный аванс",
+                                                type: "Консультация",
+                                                description: "Учет авансовых платежей в валюте и рублях в 1С:Бухгалтерия 3.0. Переоценка валюты на дату аванса и на дату исполнения. Частичные авансы: порядок расчета курсовых разниц, отражение в налоговом и бухгалтерском учете, формирование книги покупок и книги продаж. Практические примеры с евро и долларом США.",
+                                                tags: ["1С:Бухгалтерия 3.0", "Валютные операции", "Аванс в валюте", "Частичный аванс", "Курсовая разница", "Переоценка валюты", "Валютный договор", "Счет 52", "Счет 62", "Налоговый учет", "Бухгалтерский учет", "Книга покупок", "Книга продаж", "Евро", "Доллар", "Курс валют", "Условные единицы", "НДС", "Авансовый платеж"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8771216?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FБухгалтерия%20%203.0%20оплата%20в%20валюте%20или%20в%20рублях.%20Частичный%20аванс.docx"
+                                            },
+                                            {
+                                                name: "В книге продаж выходит номер платежного поручения, а не счет фактура на аванс",
+                                                type: "Консультация",
+                                                description: "Проблема отражения номеров авансовых счетов-фактур в книге продаж в 1С:Бухгалтерия 3.0. При восстановлении НДС с аванса в книге продаж вместо номера счета-фактуры подтягивается номер документа оплаты. Решение: в документе «Формирование записей книги продаж» необходимо установить ставку НДС 20/120 вместо 20%.",
+                                                tags: ["1С:Бухгалтерия 3.0", "Книга продаж", "Восстановление НДС", "Аванс", "Счет-фактура на аванс", "Ставка НДС", "НДС 20/120", "Формирование записей книги продаж", "Номер счета-фактуры", "Столбец 3 книги продаж", "Авансовый платеж", "НДС к вычету", "Корректировка НДС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/70444920?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FВ%20книге%20продаж%20выходит%20номер%20платежного%20поручения%2Cа%20не%20счет%20фактура%20на%20аванс.docx"
+                                            },
+                                            {
+                                                name: "Как в 1С:Бухгалтерия предприятия в 2025 году выставить счет на 2026г с НДС 22%",
+                                                type: "Консультация",
+                                                description: "Порядок выставления счета в 1С на поставку в 2026 году с НДС 22%: создание документа «Счет покупателю», ручной ввод ставки НДС 22% (которая станет доступной с 01.01.2026), указание суммы с учетом новой ставки.",
+                                                tags: ["1С", "Счет покупателю", "НДС 22%", "Ставка НДС", "Счет на поставку", "2026 год", "Ручной ввод ставки", "НДС 2025", "Продажи", "Договор поставки"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/73777997?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКак%20в%201С%3A%20Бухгалтерия%20предприятия%20в%202025%20году%20выставить%20счет%20на%202026г%20с%20НДС%2022%25.docx"
+                                            },
+                                            {
+                                                name: "Как при совмещении режимов в декларации по ЕНВД указать нужный КПП",
+                                                type: "Консультация",
+                                                description: "Указание нужного КПП в декларации по ЕНВД при совмещении режимов налогообложения в 1С:Бухгалтерия 8 (ред. 3.0). Для этого необходимо создать дополнительную запись в справочнике «Регистрация в налоговом органе» с КПП, где в позициях 5-6 указано значение «35».",
+                                                tags: ["1С:Бухгалтерия", "ЕНВД", "Декларация по ЕНВД", "КПП", "Регистрация в налоговом органе", "Совмещение режимов", "Налоговая отчетность", "1С-Отчетность", "Справочник Организации", "Титульный лист декларации", "Основная система налогообложения", "УСН"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8772182?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКак%20при%20совмещении%20режимов%20в%20декларации%20по%20ЕНВД%20указать%20нужный%20КПП.docx"
+                                            },
+                                            {
+                                                name: "Код валютной операции в платежных документах",
+                                                type: "Консультация",
+                                                description: "Заполнение кода валютной операции (КВО) в платежном поручении в 1С:Бухгалтерия 8 (ред. 3.0) начиная с версии 3.0.147.25. КВО требуется указывать при выплате зарплаты сотруднику-иностранцу, временно пребывающему в РФ (нерезиденту). Включение функционала через настройки функциональности «Банк и касса» — «Валютный контроль». Код автоматически отражается в назначении платежа.",
+                                                tags: ["1С:Бухгалтерия 8", "Код валютной операции", "КВО", "Валютный контроль", "Платежное поручение", "Перечисление зарплаты", "Иностранный сотрудник", "Нерезидент", "Валютное законодательство", "Списание с расчетного счета", "Поступление на расчетный счет", "Версия 3.0.147.25", "Банк и касса", "Функциональность программы"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/55645872?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FКод%20валютной%20операции%20в%20платежных%20документах.docx"
+                                            },
+                                            {
+                                                name: "Модернизация ОС в БУх 3.0",
+                                                type: "Консультация",
+                                                description: "Модернизация основных средств в 1С:Бухгалтерия 3.0. Алгоритм: сбор затрат на счете 08.03 через документы «Поступление товаров и услуг» и «Требование-накладная», затем документ «Модернизация ОС». Расчет амортизации после модернизации в БУ и НУ. Пересмотр срока полезного использования при увеличении показателей.",
+                                                tags: ["Модернизация ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8774501?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FМодернизация%20ОС%20в%20БУх%203.0%20%20АХДБ.docx"
+                                            },
+                                            {
+                                                name: "Налог на прибыль в 1С 8.3",
+                                                type: "Статья",
+                                                description: "Урок по настройке и ведению налогового учета налога на прибыль в программе 1С:Бухгалтерия 8.3. Рассматриваются постоянные налоговые активы и обязательства, их формирование и отражение в учете.",
+                                                tags: ["1С", "Бухгалтерия 8.3", "Налог на прибыль", "Налоговый учет", "Постоянные налоговые активы", "Постоянные налоговые обязательства", "Видеоурок", "Обучение", "Бухгалтерский учет", "ПБУ 18"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8774957?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FНалог%20на%20прибыль%20в%201С%208.3.docx"
+                                            },
+                                            {
+                                                name: "Настройка автозаполнения цены в поступлении по предыдущему документу",
+                                                type: "Консультация",
+                                                description: "Инструкция по настройке автозаполнения цены в документе \"Поступление\" на основе предыдущего документа в 1С. Описан порядок работы регистра \"Цены номенклатуры документов\" и настройка константы \"Настройка заполнения цены продажи\".",
+                                                tags: ["1С", "Автозаполнение цены", "Поступление товаров", "Цены номенклатуры", "Настройка 1С", "Управление торговлей", "Инструкция"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8786366?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FНастройка%20автозаполнения%20цены%20в%20поступлении%20%20по%20предыдущему%20документу.docx"
+                                            },
+                                            {
+                                                name: "Настройка ДиректБанк",
+                                                type: "Консультация",
+                                                description: "Решение проблемы с ошибкой при настройке Директ Банк в 1С. Описаны два варианта: установка внешней компоненты системным администратором или подключение к удаленному столу через Анидеск.",
+                                                tags: ["1С", "Директ Банк", "Ошибка настройки"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/9997811?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FНастройка%20ДиректБанк.odt"
+                                            },
+                                            {
+                                                name: "После обновления на версию 3.0.167 слетели итоги по счету 68.01",
+                                                type: "Папка",
+                                                description: "Ошибка релиза 3.0.168.25, патч. Проблема февраля 2025 г",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/files/files/44443086?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/После%20обновления%20на%20версию%203.0.167%20слетели%20итоги%20по%20счету%2068.01",
+                                                children: [
+                                                    {
+                                                        name: "КорректировкаСчетовНДФЛ (1).epf",
+                                                        type: "Обработка",
+                                                        description: "Обработка Инфорстарт для решения проблемы с остатками на счете 68.01 после обновления релиза 1С.",
+                                                        tags: ["1С", "Бухгалтерия 8", "Счет 68.01", "Остатки", "Обновление релиза", "Техподдержка 1С"],
+                                                        link: "https://drive.rarus.ru/apps/files/files/44443176?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/После%20обновления%20на%20версию%203.0.167%20слетели%20итоги%20по%20счету%2068.01"
+                                                    },
+                                                    {
+                                                        name: "Описание решения",
+                                                        type: "Документ",
+                                                        description: "Решение проблемы с остатками на счете 68.01 после обновления релиза 1С. Побочный эффект - исчезновение субконто 'Регистрация в налоговом органе'.",
+                                                        tags: ["1С", "Бухгалтерия 8", "Счет 68.01", "Остатки", "Обновление релиза", "Техподдержка 1С", "Субконто", "Налоговый учет"],
+                                                        link: "https://drive.rarus.ru/apps/files/files/44443176?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/После%20обновления%20на%20версию%203.0.167%20слетели%20итоги%20по%20счету%2068.01&editing=false&openfile=true"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                name: "ПРИМЕР РЕЗЕРВА ПОД ОБЕСЦЕНЕНИЕ ЗАПАСОВ В ПРОГРАММЕ 1С:БУХГАЛТЕРИЯ 8 КОРП РЕДАКЦИЯ 3",
+                                                type: "Консультация",
+                                                description: "Инструкция по созданию и отражению резерва под обесценение запасов в программе 1С:Бухгалтерия 8 КОРП редакция 3. Рассмотрен порядок формирования резерва, проводки и настройки.",
+                                                tags: ["1С", "Бухгалтерия 8 КОРП", "Резерв под обесценение", "Запасы", "Обесценение активов", "ПБУ", "Бухгалтерский учет", "Инструкция", "Редакция 3"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778875?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FПРИМЕР%20РЕЗЕРВА%20ПОД%20ОБЕСЦЕНЕНИЕ%20ЗАПАСОВ%20В%20ПРОГРАММЕ%201С_БУХГАЛТЕРИЯ%208%20КОРП%20РЕДАКЦИЯ%203.docx"
+                                            },
+                                            {
+                                                name: "ПРОДАЖА ОСНОВНОГО СРЕДСТВА В 1С 8.3. Пошаговая инструкция (+убыток)",
+                                                type: "Консультация",
+                                                description: "Реализация ОС имеет свои особенности оформления в 1С Бухгалтерия 8.3. Пошаговая инструкция продажи основного средства зависит от того, реализуется ли оно с убытком или с прибылью, нужна ли подготовка к передаче ОС. В данной статье рассматривается как продать основное средство в 1С 8.3 и какие есть нюансы оформления в 1С.",
+                                                tags: ["1С 8.3 Бухгалтерия", "Продажа основных средств", "Списание ОС", "Подготовка к передаче", "Передача ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8775416?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FПРОДАЖА%20ОСНОВНОГО%20СРЕДСТВА%20В%201С%208.3_%20ПОШАГОВАЯ%20ИНСТРУКЦИЯ.%20(%2Bубыток).docx"
+                                            },
+                                            {
+                                                name: "Реализация ОС на консервации с убытком",
+                                                type: "Консультация",
+                                                description: "Разбор проблемы с некорректным закрытием периода при передаче законсервированного ОС в 1С:Бухгалтерия предприятия Проф. Рассмотрены особенности документов \"Передача ОС\" и \"Подготовка к передаче ОС\", причины расхождения данных между Декларацией по налогу на прибыль и Анализом счета 68.04.",
+                                                tags: ["1С", "Бухгалтерия предприятия Проф", "Амортизация ОС", "Передача ОС", "Консервация ОС", "Счет 68.04", "Налог на прибыль", "Закрытие периода", "Проводки", "Исправление ошибок"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/27436351?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FРеализация%20ОС%20на%20консервации%20с%20убытком%20(Данкина%20А).docx"
+                                            },
+                                            {
+                                                name: "Регламентная операция Корректировка стоимости номенклатуры сторнирует себестоимости реализации",
+                                                type: "Консультация",
+                                                description: "Решение проблемы с некорректным расчетом себестоимости в 1С:Бухгалтерия, когда программа не видела январские поступления 2023 года. Проблема была связана с нарушением последовательности документов. Решение - перепроведение поступлений за январь 2023 и перенос границы с последующим перезакрытием периода.",
+                                                tags: ["1С", "Бухгалтерия предприятия", "Себестоимость", "Корректировка стоимости номенклатуры", "Поступление товаров", "Закрытие месяца", "Перепроведение документов", "Исправление ошибок", "2023 год"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8721995?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FРег%20операция%20Корректировка%20стоимости%20номенклатуры%20сторнирует%20себестоимости%20реализации.docx"
+                                            },
+                                            {
+                                                name: "Самоучитель по НДС в 1С БП 3.0",
+                                                type: "Книга",
+                                                description: "НДС — один из самых сложных налогов. Чтобы проще с ним было разобраться, в этой статье мы обобщили информацию: по теории учета НДС и организации учета НДС в программе 1С",
+                                                tags: ["НДС", "1С:Бухгалтерия предприятия", "УСН", "ОСН"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/25829191?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FСамоучитель%20по%20НДС%20в%201С%20БП%203.0.pdf"
+                                            },
+                                            {
+                                                name: "Учет резерва на оплату отпусков в программе 1С:Бухгалтерия 8 (редакция 3)",
+                                                type: "Консультация",
+                                                description: "Статья по настройке и ведению учета резерва на оплату отпусков в программе 1С:Бухгалтерия 8 редакция 3. Рассмотрены понятие резерва, правовая основа (НК РФ), порядок создания и отражения в учете, а также проверка корректности расчетов резерва.",
+                                                tags: ["1С", "Бухгалтерия 8", "Резерв на оплату отпусков", "Резерв отпусков", "Учет резервов", "Редакция 3", "Видеоурок", "Бухгалтерский учет", "Налоговый учет", "Кадровый учет"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8787188?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FУчет%20резерва%20на%20оплату%20отпусков%20в%20программе%20_1С_Бухгалтерия%208_%20(редакция%203.docx"
+                                            },
+                                            {
+                                                name: "Инструкция о порядке работы с документами по расчету себестоимости",
+                                                type: "Папка",
+                                                description: "Комплект инструкций по порядку работы с документами для расчета себестоимости в 1С:ERP. Включает общие требования к документообороту, порядок закрытия месяца и инструкции по заполнению специализированных документов.",
+                                                tags: ["1С:ERP", "Расчет себестоимости", "Документооборот", "Закрытие месяца", "Производство", "Затраты", "ФОТ", "ОПР", "Вспомогательное производство", "Доходный заказ", "Корректировка затрат", "Инструкция"],
+                                                link: "https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/04.%201С%20Бухгалтерия/Инструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости&openfile=false",
+                                                children: [
+                                                    {
+                                                        name: "Инструкция по составлению документа Корректировка затрат",
+                                                        type: "Инструкция",
+                                                        description: "Инструкция по заполнению документа «Корректировка затрат» в 1С:ERP. Ручная корректировка затрат в закрытом периоде.",
+                                                        tags: ["1С:ERP", "Корректировка затрат", "Ручная корректировка", "Закрытый период", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8781224?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Корректировка%20затрат.docx"
+                                                    },
+                                                    {
+                                                        name: "Инструкция по составлению документа Перенос затрат вспомогательного производства на ОПР",
+                                                        type: "Инструкция",
+                                                        description: "Инструкция по заполнению документа «Перенос затрат вспомогательного производства на ОПР» в 1С:ERP.",
+                                                        tags: ["1С:ERP", "Перенос затрат", "Вспомогательное производство", "ОПР", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8781290?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20вспомогательного%20производства%20на%20ОПР.docx"
+                                                    },
+                                                    {
+                                                        name: "Инструкция по составлению документа Перенос затрат на выпускающее подразделение",
+                                                        type: "Инструкция",
+                                                        description: "Инструкция по заполнению документа «Перенос затрат на выпускающее подразделение» в 1С:ERP.",
+                                                        tags: ["1С:ERP", "Перенос затрат", "Выпускающее подразделение", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8781407?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20на%20выпускающее%20подразделение.docx"
+                                                    },
+                                                    {
+                                                        name: "Инструкция по составлению документа Перенос затрат на доходный заказ",
+                                                        type: "Инструкция",
+                                                        description: "Инструкция по заполнению документа «Перенос затрат на доходный заказ» в 1С:ERP.",
+                                                        tags: ["1С:ERP", "Перенос затрат", "Доходный заказ", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8781455?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20на%20доходный%20заказ.docx"
+                                                    },
+                                                    {
+                                                        name: "Инструкция по составлению документа Распределение ФОТ",
+                                                        type: "Инструкция",
+                                                        description: "Инструкция по заполнению документа «Распределение ФОТ» в 1С:ERP.",
+                                                        tags: ["1С:ERP", "Распределение ФОТ", "ФОТ", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8781701?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Распределение%20ФОТ.docx"
+                                                    },
+                                                    {
+                                                        name: "Инструкция общая",
+                                                        type: "Инструкция",
+                                                        description: "Общая инструкция по порядку работы с документами для расчета себестоимости в 1С:ERP.",
+                                                        tags: ["1С:ERP", "Расчет себестоимости", "Инструкция"],
+                                                        link: "https://drive.rarus.ru/apps/onlyoffice/8782472?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция_общая.docx"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "05. 1С Розница",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/73778067?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/05%201С%20Розница",
+                                        children: [
+                                            {
+                                                name: "Обработка НДС22%Фронтол 1с не завезла при обмене фронтола ставку 22%. Для розницы 2.3 самого последнего релиза",
+                                                type: "Обработка",
+                                                description: "Возможное описание на сайте https://infoblog.mywebguide.ru/articles/page_300866.html",
+                                                tags: ["1С", "Розница", "НДС 22%", "Фронтол", "Обмен данными"],
+                                                link: "https://drive.rarus.ru/apps/files/files/73778067?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/05%201С%20Розница"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "06. 1С Административно хозяйственная деятельность банка",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/8108994?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/06.%201С%20Административно%20хозяйственная%20деятельность%20банка",
+                                        children: [
+                                            {
+                                                name: "Алгоритм расчета Амортизации ОС в АХДБ",
+                                                type: "Консультация",
+                                                description: "Алгоритм расчета амортизации ОС в 1С:Бухгалтерия. Основная формула. Влияние Модернизации: Амортизация в месяце, в котором была модернизация.",
+                                                tags: ["Модернизация ОС", "Амортизация", "АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778476?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FАлгорит%20расчета%20%20Амортизации%20ОС%20в%20АХДБ.pdf"
+                                            },
+                                            {
+                                                name: "БК Ошибка при проведении Открытие счетов. Статьи доходов и расходов могут иметь привязку только к одному счету учета",
+                                                type: "Консультация",
+                                                description: "Описание ограничения в программе 1С (банковская конфигурация) по привязке статей доходов и расходов к счетам учета. Статья может быть привязана только к одному счету (70601 или 70606, 70701 или 70706).",
+                                                tags: ["1С", "Банковский учет", "Статьи доходов", "Статьи расходов", "Счет 70601", "Счет 70606", "Счет 70701", "Счет 70706"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/9537659?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FБК%20Ошибка_%20при%20проведении%20%22Открытие%20счетов..%22%20Статьи%20доходов%20и%20расходов%20могут%20иметь%20привязку%20только%20к%20одному%20счету%20учета.docx"
+                                            },
+                                            {
+                                                name: "БК Ошибка при проведении документа Открытие счетов. Счет уже создан. Скрытый реквизит",
+                                                type: "Консультация",
+                                                description: "Инструкция по решению ошибки Счет уже создан при проведении документа Открытие счетов в 1С:Бухгалтерия государственного учреждения (БК).",
+                                                tags: ["1С", "Бухгалтерия государственного учреждения", "БК", "Открытие счетов", "Ошибка проведения"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/9537644?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FБК%20Ошибка_%20при%20проведения%20документа%20%22Открытие%20счетов..%22%20счет%20уже%20создан.%20Скрытый%20реквизит.pdf"
+                                            },
+                                            {
+                                                name: "Вопрос по оприходованию ОС двумя доками поступления",
+                                                type: "Консультация",
+                                                description: "Консультация по оприходованию основных средств двумя документами поступления в 1С:Бухгалтерия.",
+                                                tags: ["1С", "Основные средства", "Оприходование ОС", "Поступление ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778479?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FВопрос%20по%20оприходованию%20ОС%20двумя%20доками%20поступления.pdf"
+                                            },
+                                            {
+                                                name: "Инструкция по вводу начальных остатков по материалам на складах",
+                                                type: "Инструкция",
+                                                description: "Инструкция по вводу начальных остатков номенклатуры в 1С с формированием счетов-фактур для каждой позиции.",
+                                                tags: ["1С", "Ввод остатков", "Номенклатура", "Счет-фактура", "Требование-накладная", "НДС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8109003?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20вводу%20начальных%20остатков%20по%20материалам%20на%20складам%20-%20требование-накладная-%20НДС.docx"
+                                            },
+                                            {
+                                                name: "Инструкция по начислению Амортизации НМА",
+                                                type: "Инструкция",
+                                                description: "Инструкция по начислению амортизации НМА в 1С. Рассмотрена проблема с датой начала амортизации и варианты её решения.",
+                                                tags: ["1С", "НМА", "Амортизация НМА", "Начисление амортизации"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8354408?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20начислению%20Амортизации%20НМА.docx"
+                                            },
+                                            {
+                                                name: "Инструкция по отражению операций СПОД",
+                                                type: "Инструкция",
+                                                description: "Инструкция по отражению операций СПОД (расчеты с поставщиками и подрядчиками) в 1С:Бухгалтерия государственного учреждения.",
+                                                tags: ["1С", "Бухгалтерия государственного учреждения", "БК", "СПОД", "Кассовое выбытие", "Кассовое поступление"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/74407701?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20отражению%20операций%20СПОД.docx"
+                                            },
+                                            {
+                                                name: "Инструкция по Списанию РБП",
+                                                type: "Инструкция",
+                                                description: "Инструкция по списанию расходов будущих периодов (РБП) в программе 1С:Бухгалтерия.",
+                                                tags: ["1С", "АХДБ", "РБП", "Расходы будущих периодов", "Списание РБП"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778482?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20Списанию%20РБП%20Ильясова.pdf"
+                                            },
+                                            {
+                                                name: "Инструкция по учету в 1С АХДБ, ссылка на ИТС",
+                                                type: "Руководство",
+                                                description: "Ссылка на ИТС. Инструкция по конфигурации АХДБ",
+                                                tags: ["1С", "АХДБ", "ИТС", "Инструкция"],
+                                                link: "https://drive.rarus.ru/apps/files/files/12961904?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/06.%201С%20Административно%20хозяйственная%20деятельность%20банка&editing=false&openfile=true"
+                                            },
+                                            {
+                                                name: "Инструкция. Переоценка активов в запасе",
+                                                type: "Инструкция",
+                                                description: "",
+                                                tags: [],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778485?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция.%20Переоценка%20активов%20в%20запасе%2C%20редакт.pdf"
+                                            },
+                                            {
+                                                name: "Модернизация ОС в БУх 3.0 АХДБ",
+                                                type: "Консультация",
+                                                description: "Модернизация основных средств в 1С:Бухгалтерия 3.0. Алгоритм: сбор затрат на счете 08.03 через документы Поступление товаров и услуг и Требование-накладная, затем документ Модернизация ОС.",
+                                                tags: ["Модернизация ОС"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8774591?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FМодернизация%20ОС%20в%20БУх%203.0%20%20АХДБ.docx"
+                                            },
+                                            {
+                                                name: "Настройка группы учета по счетам учета",
+                                                type: "Консультация",
+                                                description: "Описывается настройка группы учета Материальные запасы по счетам учета для документа Открытие счетов аналитического учета.",
+                                                tags: ["Аналитические счета", "АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778488?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FНастройка%20группы%20учета%20по%20счетам%20учета.pdf"
+                                            },
+                                            {
+                                                name: "Настройка наименования счета",
+                                                type: "Консультация",
+                                                description: "Описывается настройка поля Наименование счета в документе открытия счетов аналитического учета.",
+                                                tags: ["Аналитические счета", "АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778491?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FНастройка%20наименования%20счета.pdf"
+                                            },
+                                            {
+                                                name: "Настройка открытия счетов",
+                                                type: "Консультация",
+                                                description: "Описывается настройка открытия счетов учета и добавление аналитик для счетов аналитического учета.",
+                                                tags: ["Аналитические счета", "АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778539?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2Fнастройка%20открытия%20счетов.pdf"
+                                            },
+                                            {
+                                                name: "О программе",
+                                                type: "Книга",
+                                                description: "Описание возможностей АХДБ",
+                                                tags: ["АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778581?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FО%20программе.pdf"
+                                            },
+                                            {
+                                                name: "Переоценка и обесценение ОС",
+                                                type: "Консультация",
+                                                description: "Инструкция по переоценке и обесценению основных средств в 1С:Бухгалтерия государственного учреждения.",
+                                                tags: ["1С АХДБ", "Переоценка ОС", "Обесценение ОС", "Основные средства"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778977?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПереоценка%20и%20обесценение%20ОС.pdf"
+                                            },
+                                            {
+                                                name: "При открытии счета аналитического по символам ОФР ругается что счет уже создан",
+                                                type: "Консультация",
+                                                description: "Решение проблемы с ошибкой Счет уже создан при открытии счета аналитического учета по символам ОФР в 1С:АХДБ.",
+                                                tags: ["1С", "АХДБ", "Банковский учет", "Открытие счетов", "ОФР"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8840321?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПри%20открытии%20счета%20аналитического%20по%20символам%20ОФР%20ругается%20что%20счет%20уже%20созданdocx.docx"
+                                            },
+                                            {
+                                                name: "Проблема начисления амортизации НМА",
+                                                type: "Консультация",
+                                                description: "Описание бага в алгоритме начисления амортизации НМА в 1С:Бухгалтерия банка.",
+                                                tags: ["1С", "Бухгалтерия банка", "НМА", "Амортизация НМА", "Модернизация НМА"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/68734410?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FПроблема%20начисления%20амортизации%20НМА.docx"
+                                            },
+                                            {
+                                                name: "Расчет налога на имущество (проблема с Декларацией по налогу на имущество по нескольким ОКТМО)",
+                                                type: "Консультация",
+                                                description: "Решение проблемы с автоматическим заполнением декларации по налогу на имущество в разрезе ОКТМО в 1С:АХДБ после обновления.",
+                                                tags: ["1С", "АХДБ", "Налог на имущество", "ОКТМО", "Декларация по налогу на имущество"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/76912941?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FРасчет%20налога%20на%20имущество%20(проблема%20с%20Декларацией%20по%20налогу%20на%20имущество%20по%20нескольким%20ОКТМО).docx"
+                                            },
+                                            {
+                                                name: "Скрытие персональных данных",
+                                                type: "Консультация",
+                                                description: "Инструкция по использованию обработки Скрытие конфиденциальной информации в 1С для очистки персональных данных перед передачей базы в техподдержку.",
+                                                tags: ["1С", "Персональные данные", "Скрытие ПДн", "Конфиденциальная информация"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8778998?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FСкрытие%20персональных%20данных.docx"
+                                            },
+                                            {
+                                                name: "Счета 60311 и 60312. Ошибка при проведении документа Открытие счетов аналитического учета",
+                                                type: "Консультация",
+                                                description: "Предоставлено решение устранения ошибки открытия счетов 60311 и 60312",
+                                                tags: ["АХДБ", "Аналитические счета"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/68733735?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FСчета%2060311%20и%2060312.Ошибка%20при%20проведении%20документа%20%22Открытие%20счетов%20ан.%20учета%22.docx"
+                                            },
+                                            {
+                                                name: "Уничтожение ПД",
+                                                type: "Статья",
+                                                description: "Разъяснения о способах уничтожения ПДн из 1С:ЗУП и 1С:АХДБ",
+                                                tags: ["персональные данные", "уничтожение", "АХДБ"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/8779013?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FУничтожение%20ПД.docx"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: "07. Интеграции, доработки и прочие материалы",
+                                        type: "Папка",
+                                        description: "",
+                                        tags: [],
+                                        link: "https://drive.rarus.ru/apps/files/files/77787337?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний%20РСБУ/07.%20Интеграции%2C%20доработки%20и%20прочие%20материалы",
+                                        children: [
+                                            {
+                                                name: "Сравнение хоз. операций, видов договоров и оформляемых документов в ЕРП и БП",
+                                                type: "Документ",
+                                                description: "Предложение по доработке обмена ЕРП и БП в части видов договоров, предложенной на клиенте ЗТЭО",
+                                                tags: ["Доработка", "договоры", "ЕРП", "интеграция", "обмен"],
+                                                link: "https://drive.rarus.ru/apps/onlyoffice/73602405?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F07.%20Интеграции%2C%20доработки%20и%20прочие%20материалы%2FСравнение%20хоз.%20операций%2C%20видов%20договоров%20и%20оформляемых%20документов%20в%20ЕРП%20и%20БП.docx"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Записи встреч",
+                                type: "Папка",
+                                description: "Записи собраний, обучений группы РСБУ",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/files/files/26153122?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Записи%20встреч"
+                            },
+                            {
+                                name: "Информация для кофе-брейка и завтрака путешественников",
+                                type: "Документ",
+                                description: "Хобби сотрудников РСБУ, рекомендации в путешествиях от сотрудников РСБУ",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/7745256?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FИнформация%20для%20кофе-брейка%20%20и%20завтрака%20путешественника.xlsx"
+                            },
+                            {
+                                name: "Распределение по клиентам ОМКС РСБУ 2026",
+                                type: "Документ",
+                                description: "Распределение методологов по клиентам РСБУ. Перечень программных продуктов, с которыми сталкивались методологи РСБУ",
+                                tags: [],
+                                link: "https://drive.rarus.ru/apps/onlyoffice/76777873?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FРаспределение%20по%20клиентам%20ОМКС%20РСБУ%202026%20.xlsx"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+        
+        function getTypeIcon(type) {
+            switch(type) {
+                case 'Папка': return `<svg class="folder-icon" viewBox="0 0 24 24" fill="#f59e0b"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>`;
+                case 'Инструкция': return `<svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`;
+                case 'Документ': return `<svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>`;
+                case 'Курс': return `<svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`;
+                case 'Вебинар': return `<svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`;
+                default: return `<svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>`;
+            }
+        }
+        
+        function renderTree(items = data, container = document.getElementById('tree'), level = 0) {
+            container.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const folderDiv = document.createElement('div');
+                folderDiv.className = `folder level-${level}`;
+                folderDiv.dataset.name = (item.name || '').toLowerCase();
+                folderDiv.dataset.desc = (item.description || '').toLowerCase();
+                folderDiv.dataset.tags = (item.tags || []).join(' ').toLowerCase();
+                
+                const hasChildren = item.children && item.children.length > 0;
+                const linkUrl = item.link || '';
+                const itemIcon = getTypeIcon(item.type);
+                
+                let headerHtml = hasChildren 
+                    ? `<div class="folder-header">
+                         <svg class="folder-toggle" onclick="toggleFolder(this.closest('.folder'))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor:pointer"><path d="M6 9l6 6 6-6"/></svg>
+                         ${itemIcon}
+                         <span class="folder-name">${item.name || ''}</span>
+                         ${item.type ? `<span class="folder-badge">${item.type}</span>` : ''}
+                         ${linkUrl ? `<a href="${linkUrl}" target="_blank" class="item-link" onclick="event.stopPropagation()">
+                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                             <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                             <path d="M15 3h6v6"/>
+                             <path d="M10 14L21 3"/>
+                           </svg>
+                         </a>` : ''}
+                       </div>`
+                    : `<div class="folder-header">
+                         ${itemIcon}
+                         <span class="folder-name">${item.name || ''}</span>
+                         ${item.type ? `<span class="folder-badge">${item.type}</span>` : ''}
+                         ${linkUrl ? `<a href="${linkUrl}" target="_blank" class="item-link" onclick="event.stopPropagation()">
+                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                             <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                             <path d="M15 3h6v6"/>
+                             <path d="M10 14L21 3"/>
+                           </svg>
+                         </a>` : ''}
+                       </div>`;
+                
+                folderDiv.innerHTML = headerHtml;
+                
+                if (item.description) {
+                    const descDiv = document.createElement('div');
+                    descDiv.className = 'folder-description';
+                    descDiv.textContent = item.description;
+                    folderDiv.appendChild(descDiv);
+                }
+                
+                if (hasChildren) {
+                    const childrenContainer = document.createElement('div');
+                    childrenContainer.className = 'nested-children';
+                    folderDiv.appendChild(childrenContainer);
+                    renderTree(item.children, childrenContainer, level + 1);
+                }
+                
+                container.appendChild(folderDiv);
+            });
+        }
+        
+        function toggleFolder(folder) {
+            folder.classList.toggle('collapsed');
+        }
+        
+        function expandAll() {
+            document.querySelectorAll('.folder.collapsed').forEach(folder => {
+                folder.classList.remove('collapsed');
+            });
+        }
+        
+        function collapseAll() {
+            document.querySelectorAll('.folder').forEach(folder => {
+                folder.classList.add('collapsed');
+            });
+        }
+        
+        function getTypeIconForSearch(type) {
+            switch(type) {
+                case 'Инструкция': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`;
+                case 'Регламент': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`;
+                case 'Документ': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>`;
+                case 'Консультация': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>`;
+                case 'Обработка': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>`;
+                case 'Руководство': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`;
+                case 'Книга': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`;
+                case 'Статья': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#84cc16" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`;
+                case 'Доработка': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`;
+                case 'Курс': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`;
+                case 'Вебинар': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`;
+                case 'Папка': return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>`;
+                default: return `<svg class="search-result-icon" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>`;
+            }
+        }
+        
+        function searchItems(items, term, path = '') {
+            let results = [];
+            items.forEach(item => {
+                const currentPath = path ? path + ' → ' + item.name : item.name;
+                const name = (item.name || '').toLowerCase();
+                const desc = (item.description || '').toLowerCase();
+                const tags = ((item.tags || []).join(' ')).toLowerCase();
+                
+                if (name.includes(term) || desc.includes(term) || tags.includes(term)) {
+                    results.push({
+                        name: item.name,
+                        type: item.type,
+                        description: item.description,
+                        link: item.link,
+                        path: currentPath
+                    });
+                }
+                
+                if (item.children && item.children.length > 0) {
+                    results = results.concat(searchItems(item.children, term, currentPath));
+                }
+            });
+            return results;
+        }
+        
+        function filterTree() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchResults = document.getElementById('searchResults');
+            const tree = document.getElementById('tree');
+            const resultsInfo = document.getElementById('resultsInfo');
+            
+            if (searchTerm === '') {
+                searchResults.classList.remove('active');
+                searchResults.innerHTML = '';
+                tree.style.display = '';
+                resultsInfo.textContent = '';
+                return;
+            }
+            
+            const results = searchItems(data, searchTerm);
+            
+            tree.style.display = 'none';
+            searchResults.classList.add('active');
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">Ничего не найдено</div>';
+                resultsInfo.textContent = 'Найдено: 0';
+                return;
+            }
+            
+            resultsInfo.textContent = `Найдено: ${results.length}`;
+            
+            searchResults.innerHTML = results.map(item => `
+                <a href="${item.link || '#'}" target="_blank" class="search-result-item">
+                    ${getTypeIconForSearch(item.type)}
+                    <div class="search-result-content">
+                        <div class="search-result-name">${item.name || ''}</div>
+                        ${item.description ? `<div class="search-result-desc">${item.description}</div>` : ''}
+                        <div class="search-result-path">${item.path}</div>
+                    </div>
+                    ${item.link ? `<span class="search-result-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>` : ''}
+                </a>
+            `).join('');
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', filterTree);
+        renderTree();
+    </script>
+</body>
+</html>

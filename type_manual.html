@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Руководства - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #ec4899; }
+        .type-link.active { color: #ec4899; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #ec4899; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #ec4899; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #ec4899; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #db2777; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Руководства</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link active"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">02. 1С ЕРП</div>
+            
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22926506?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FПрактика%20в%201С.%20ПБУ%2018.02%20по%20опреациям%20ОС.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Практика в 1С. ПБУ 18.02 по операциям ОС</div>
+                    <div class="item-desc">Практическое руководство по применению ПБУ 18/02 в 1С к операциям с основными средствами: поступление, амортизация, выбытие</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/71842512?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FРеализация%20агентских%20услуг%20в%20ERP.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Реализация агентских услуг в ERP</div>
+                    <div class="item-desc">Руководство по реализации агентских услуг в 1С:ERP 2.5. Рассмотрены виды агентских договоров и схемы документооборота</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22926464?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FРеализация%20товара%2C%20который%20облагается%20НДС%20у%20покупат.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Реализация товара, который облагается НДС у покупателя</div>
+                    <div class="item-desc">Руководство по отражению в 1С:ERP 2.5 реализации товаров, облагаемых НДС у покупателя (налоговый агент)</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22926470?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FУЧЕТ%20НДС%20В%20ПРОГРАММЕ%20_1С_ERP%20УПРАВЛЕНИЕ%20ПРЕДПРИЯТИЕМ%202.5_%20%20Влияние%20вида%20деятельности%20НДС%20на%20учет%20стоимости%20ТМЦ.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Учет НДС в программе 1С:ERP 2.5. Влияние вида деятельности НДС на учет стоимости ТМЦ</div>
+                    <div class="item-desc">Руководство по учету НДС в 1С:ERP 2.5. Рассмотрено влияние вида деятельности на формирование стоимости ТМЦ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">04. 1С Бухгалтерия</div>
+            
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8716454?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2F1С%20УЧЕТ%20УБЫТКОВ%20ОТ%20РЕАЛИЗАЦИИ%20АМОРТИЗИРУЕМОГО%20ИМУЩЕСТВА.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">1С УЧЕТ УБЫТКОВ ОТ РЕАЛИЗАЦИИ АМОРТИЗИРУЕМОГО ИМУЩЕСТВА</div>
+                    <div class="item-desc">Учет убытков от реализации амортизируемого имущества в 1С (ERP, УК, УПП). Налоговый учет убытков по ст.268 НК РФ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">06. 1С Административно хозяйственная деятельность банка</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/12961904?dir=/Репозиторий%20ДКС/ОМКС/ОМКС%20группа%20РСБУ/Банк%20знаний/06.%201С%20Административно%20хозяйственная%20деятельность%20банка&editing=false&openfile=true" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по учету в 1С АХДБ, ссылка на ИТС</div>
+                    <div class="item-desc">Ссылка на ИТС. Инструкция по конфигурации АХДБ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+        </div>
+    </div>
+</body>
+</html>

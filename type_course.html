@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #14b8a6; }
+        .type-link.active { color: #14b8a6; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #14b8a6; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #14b8a6; box-shadow: 0 2px 8px rgba(20, 184, 166, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #14b8a6; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #0d9488; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Курсы</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+            <a href="type_course.html" class="type-link active"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">ОМКС - 1С: УХ</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/40623995?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Бюджетирование%20в%201С%3AУправление%20холдингом" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Бюджетирование в 1С:Управление холдингом</div>
+                    <div class="item-desc">Цель курса: предоставить знания о подсистемах Бюджетирование, Управление мастер-данными, Управление инвестициями системы 1С: Управление холдингом 8</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/50052417?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Казначейство%20в%20программе%3A1С%20УХ%208" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Казначейство в программе 1С УХ 8</div>
+                    <div class="item-desc">Курс Корпоративное казначейство в системе 1С: Управление холдингом редакция 3.2</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/37257230?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/1С%3A%20УХ/Обзор%20прикладных%20решений%201С%3AУправление%20холдингом%20и%201С%3AERP%20Управление%20холдингом" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Обзор прикладных решений 1С:Управление холдингом и 1С:ERP Управление холдингом</div>
+                    <div class="item-desc">Обзор прикладных решений 1С:Управление холдингом и 1С:ERP Управление холдингом</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС - Видео курсы ЕРП</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/22664894?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20ЕРП%20Спец-конс%20РЕГЛ" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Подготовка к экзамену ЕРП Спец-конс РЕГЛ</div>
+                    <div class="item-desc">Курс от 2022 года. Детальный разбор типового билета, аналогичного принимаемому на экзамене</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/33662573?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20ЕРП%20Спец-конс%20УПР" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Подготовка к экзамену ЕРП Спец-конс УПР</div>
+                    <div class="item-desc">Курс от 2024 года — готовый план подготовки с разбором нюансов и готовыми решениями</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/11851041?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Подготовка%20к%20экзамену%20Спец-конс%20по%20бюджетированию" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Подготовка к экзамену Спец-конс по бюджетированию</div>
+                    <div class="item-desc">Курс от 2024 года из 3 частей: Подготовка, Действие, Результат</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/78195477?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Видео%20курсы%20по%20ЕРП/Курс%20Концепция%20прикладного%20решения%20ЕРП" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс Концепция прикладного решения ЕРП</div>
+                    <div class="item-desc">Обновленный курс от января 2026 г. Задача курса: показать возможности 1С:ERP — от планирования производства до подготовки регламентированной отчётности</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС - База знаний ОМКС</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/14502253?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Документооборот/ЭДО%3A%20станьте%20уверенным%20пользователем" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">ЭДО: станьте уверенным пользователем</div>
+                    <div class="item-desc">Цель курса - применение юридически значимого ЭДО между контрагентами</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/74996663?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%201С%3AКабинет%20сотрудника" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс 1С:Кабинет сотрудника</div>
+                    <div class="item-desc">1С:Кабинет сотрудника – обзор и основы использования</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/61584933?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%201С%3AТестировщик" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс 1С:Тестировщик</div>
+                    <div class="item-desc">Знакомство с 1С:Тестировщиком. Курс полезен для тестирования и проверки информационных баз</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/КУРС%20ИИ&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">КУРС ИИ</div>
+                    <div class="item-desc">Цель курса: Подключать большие языковые модели к системе 1С, автоматизировать рутинные задачи с помощью ИИ</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/12470702?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%20по%20запросам" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс по запросам</div>
+                    <div class="item-desc">Курс по запросам в 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/71110698?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Курс%20по%20маркировке" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс по маркировке</div>
+                    <div class="item-desc">Цель курса: Формирование комплексного понимания встраивания и изменения бизнес-процессов торговых и производственных предприятий при обязательной маркировке</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20по%20ТОИР&openfile=false" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Обучение по ТОИР</div>
+                    <div class="item-desc">Обучение работы в системе Техническое обслуживание и ремонт оборудования (1С: ТОиР)</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/61985028?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Обучение%20качественному%20тестированию%20в%201С%20для%20методологов%20и%20разработчиков%202026г%20от%20Бикчентаевой%20А.%20и%20Яковлевой%20А./Курс%20Сценарное%20тестирование%20Vanessa" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс Сценарное тестирование Vanessa</div>
+                    <div class="item-desc">Vanessa Automation, Turbo Gherkin, Git и GitHub, создание тестовых данных, авто-тестирование конфигураций 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/29355469?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Основы%201С%3AТКС" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Основы 1С:ТКС</div>
+                    <div class="item-desc">Онлайн-курс Организация сопровождения решений 1С и информационных систем на основе 1С:Технологии корпоративного сопровождения 2.0</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС - Книги, методички, курсы по платформе</div>
+            
+            <a href="https://drive.rarus.ru/apps/files/files/11765459?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Курс%20по%20СКД" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс по СКД</div>
+                    <div class="item-desc">Курс от 2011 года по системе компоновки данных</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/12128696?dir=/Репозиторий%20ДКС/ОМКС/База%20знаний%20ОМКС/Книги%2C%20методички%2C%20курсы%20по%20платформе/Знакомство%20с%20платформой%20для%20методологов%20от%20Ирины%20Кардапольцевой%20с%20книгами%20и%20методичками" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Курс по платформе 8 от Ирины Кардапольцевой</div>
+                    <div class="item-desc">Курс по платформе 8 от Ирины Кардапольцевой. Цель курса - дать начальное представление о работе с основными объектами и механизмами платформы</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+        </div>
+    </div>
+</body>
+</html>

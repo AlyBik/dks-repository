@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкции - Поисковик репозитория ДКС</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; font-size: 12px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+        h1 { font-size: 1.6rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-size: 13px; }
+        .back-link:hover { text-decoration: underline; }
+        .types-nav { max-width: 800px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        .type-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .type-link:hover { color: #3b82f6; }
+        .type-link.active { color: #3b82f6; }
+        .type-dot { width: 10px; height: 10px; border-radius: 50%; background: #94a3b8; }
+        .type-link:hover .type-dot, .type-link.active .type-dot { background: #3b82f6; }
+        .items-list { display: flex; flex-direction: column; gap: 8px; }
+        .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; text-decoration: none; color: #334155; transition: all 0.2s; }
+        .item:hover { border-color: #3b82f6; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15); }
+        .item-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .item-content { flex: 1; }
+        .item-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+        .item-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+        .item-link { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #3b82f6; color: white; border-radius: 50%; text-decoration: none; }
+        .item-link:hover { background: #2563eb; }
+        .item-link svg { width: 14px; height: 14px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #475569; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index_v2.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            На главную
+        </a>
+        <h1>Инструкции</h1>
+        <nav class="types-nav">
+            <a href="type_instruction.html" class="type-link active"><span class="type-dot" style="background: #3b82f6"></span>Инструкции</a>
+            <a href="type_reglament.html" class="type-link"><span class="type-dot" style="background: #8b5cf6"></span>Регламенты</a>
+            <a href="type_document.html" class="type-link"><span class="type-dot" style="background: #64748b"></span>Документы</a>
+            <a href="type_consultation.html" class="type-link"><span class="type-dot" style="background: #f59e0b"></span>Консультации</a>
+            <a href="type_processing.html" class="type-link"><span class="type-dot" style="background: #10b981"></span>Обработки</a>
+            <a href="type_manual.html" class="type-link"><span class="type-dot" style="background: #ec4899"></span>Руководства</a>
+            <a href="type_book.html" class="type-link"><span class="type-dot" style="background: #06b6d4"></span>Книги</a>
+            <a href="type_article.html" class="type-link"><span class="type-dot" style="background: #84cc16"></span>Статьи</a>
+
+            <a href="type_course.html" class="type-link"><span class="type-dot" style="background: #14b8a6"></span>Курсы</a>
+            <a href="type_webinar.html" class="type-link"><span class="type-dot" style="background: #a855f7"></span>Вебинары</a>
+            <a href="type_template.html" class="type-link"><span class="type-dot" style="background: #6366f1"></span>Шаблоны</a>
+        </nav>
+        
+        <div class="items-list">
+            <div class="section-title">Общие документы ДКС</div>
+            
+            <a href="https://drive.rarus.ru/apps/onlyoffice/14316397?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20Оформление%20документа%20Отсутствия%20сотрудника%20в%20ЕИС.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция Оформление документа Отсутствия сотрудника в ЕИС</div>
+                    <div class="item-desc">Инструкция по оформлению документа «Отсутствия сотрудника»</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9537881?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20подключению%20к%20боту%20Телеграм%20(1).pptx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по подключению к боту Телеграм</div>
+                    <div class="item-desc">Инструкция по подключению Телеграм бота ЕИС</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8392706?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20подключению%20к%20терминалу%20Волга%20Рарус%2C%20если%20есть%20проблемы%20с%20подключением.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по подключению к терминалу Волга Рарус</div>
+                    <div class="item-desc">Инструкция по подключению к терминалу Волга Рарус, если есть проблемы с подключением</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/9537866?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20работе%20с%20поручениями%20в%20ЕИС.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по работе с поручениями в ЕИС</div>
+                    <div class="item-desc">Инструкция по работе с поручениями в ЕИС</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/10288901?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FИнструкция%20по%20самооценке%20сотрудников%20в%20ЕИС.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по самооценке сотрудников в ЕИС</div>
+                    <div class="item-desc">Инструкция для отражения самооценки компетенций в ЕИС</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22483997?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FРабота%20с%20ЕИС%20по%20задачам%20и%20отчетам%20(3).docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Работа с ЕИС по задачам и отчетам</div>
+                    <div class="item-desc">Бизнес-процесс обработки обращений в ЕИС</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/22483976?filePath=%2FРепозиторий%20ДКС%2FОбщие%20документы%20ДКС%2FИнструкции%20по%20работе%20в%20ЕИС%2FСоздание%20Обращения%20в%20техслужбу%20Рарус-Казань%20(1).pptx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Создание Обращения в техслужбу Рарус-Казань</div>
+                    <div class="item-desc">Создание обращения в ЕИС для ОСР</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">База знаний ОМКС</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8107809?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FКниги%2C%20методички%2C%20курсы%20по%20платформе%2FИнструкции%20по%20работе%20с%20конфигуратором%20и%20хранилищем.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкции по работе с конфигуратором и хранилищем</div>
+                    <div class="item-desc">Информация по подключению к хранилищу</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/40273520?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FБаза%20знаний%20ОМКС%2FПорядок%20обращений%20на%20линию%20консультаций%201С%3AERP.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Порядок обращений на линию консультаций 1С:ERP</div>
+                    <div class="item-desc">Инструкция по обращению на линию консультации техподдержки по 1С:ЕРП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/files/files/8107329?dir=/Репозиторий%20ДКС/ОМКС/Инструкции%2C%20шаблоны%20и%20регламенты%20для%20методологов%20ОМКС" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкции по организации работы сотрудников</div>
+                    <div class="item-desc">Документ содержит методические рекомендации для сотрудников по вопросам: Больничный, Работа в отпуске, Ежедневная работа, Инвентаризация обращений, Оценка сотрудников и др.</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <div class="section-title">ОМКС группа РСБУ</div>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/59702481?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F02.%201С%20ЕРП%2FКак%20создать%20Этап%20производства%20вручную.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Как создать Этап производства вручную</div>
+                    <div class="item-desc">Инструкция по созданию Этапа производства вручную в 1С:ERP без использования ресурсной спецификации</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781089?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FИнструкция%20по%20настройке%20распределения%20затрат.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по настройке распределения затрат</div>
+                    <div class="item-desc">Настройка распределения затрат в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8783229?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F03.%201С%20УПП%2FКорректировка%20поступления%20в%201С%20УПП.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Корректировка поступления в 1С УПП</div>
+                    <div class="item-desc">Пошаговая инструкция по оформлению корректировки поступления в 1С:УПП</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781224?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Корректировка%20затрат.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по составлению документа Корректировка затрат</div>
+                    <div class="item-desc">Инструкция по заполнению документа «Корректировка затрат» в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781290?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20вспомогательного%20производства%20на%20ОПР.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по составлению документа Перенос затрат вспомогательного производства на ОПР</div>
+                    <div class="item-desc">Инструкция по заполнению документа в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781407?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20на%20выпускающее%20подразделение.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по составлению документа Перенос затрат на выпускающее подразделение</div>
+                    <div class="item-desc">Инструкция по заполнению документа в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781455?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Перенос%20затрат%20на%20доходный%20заказ.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по составлению документа Перенос затрат на доходный заказ</div>
+                    <div class="item-desc">Инструкция по заполнению документа в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8781701?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция%20по%20составлению%20документа%20Распределение%20ФОТ.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по составлению документа Распределение ФОТ</div>
+                    <div class="item-desc">Инструкция по заполнению документа в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8782472?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F04.%201С%20Бухгалтерия%2FИнструкция%20о%20порядке%20работы%20с%20документами%20по%20расчету%20себестоимости%2FИнструкция_общая.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция общая</div>
+                    <div class="item-desc">Общая инструкция по порядку работы с документами для расчета себестоимости в 1С:ERP</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8109003?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20вводу%20начальных%20остатков%20по%20материалам%20на%20складам%20-%20требование-накладная-%20НДС.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по вводу начальных остатков по материалам на складах</div>
+                    <div class="item-desc">Инструкция по вводу начальных остатков номенклатуры в 1С с формированием счетов-фактур</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8354408?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20начислению%20Амортизации%20НМА.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по начислению Амортизации НМА</div>
+                    <div class="item-desc">Инструкция по начислению амортизации НМА в 1С</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/74407701?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20отражению%20операций%20СПОД.docx" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по отражению операций СПОД</div>
+                    <div class="item-desc">Инструкция по отражению операций СПОД в 1С:Бухгалтерия государственного учреждения</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778482?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция%20по%20Списанию%20РБП%20Ильясова.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция по Списанию РБП</div>
+                    <div class="item-desc">Инструкция по списанию расходов будущих периодов в программе 1С:Бухгалтерия</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+
+            <a href="https://drive.rarus.ru/apps/onlyoffice/8778485?filePath=%2FРепозиторий%20ДКС%2FОМКС%2FОМКС%20группа%20РСБУ%2FБанк%20знаний%2F06.%201С%20Административно%20хозяйственная%20деятельность%20банка%2FИнструкция.%20Переоценка%20активов%20в%20запасе%2C%20редакт.pdf" target="_blank" class="item">
+                <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="item-content">
+                    <div class="item-name">Инструкция. Переоценка активов в запасе</div>
+                </div>
+                <span class="item-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
